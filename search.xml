@@ -7,12 +7,12 @@
 <h2 id="从此刻开始"><a href="#从此刻开始" class="headerlink" title="从此刻开始"></a>从此刻开始</h2>]]></content>
   </entry>
   <entry>
-    <title>没有上司的舞会</title>
+    <title>动态规划</title>
     <url>/2022/02/08/%E6%B2%A1%E6%9C%89%E4%B8%8A%E5%8F%B8%E7%9A%84%E8%88%9E%E4%BC%9AII/</url>
-    <content><![CDATA[<h3 id="没有上司的舞会"><a href="#没有上司的舞会" class="headerlink" title="没有上司的舞会"></a>没有上司的舞会</h3><blockquote>
+    <content><![CDATA[<h2 id="树形DP"><a href="#树形DP" class="headerlink" title="树形DP"></a>树形DP</h2><h3 id="洛谷p1352"><a href="#洛谷p1352" class="headerlink" title="洛谷p1352"></a>洛谷p1352</h3><blockquote>
 <p>树形DP经典题目</p>
 </blockquote>
-<h4 id="简单版本"><a href="#简单版本" class="headerlink" title="简单版本"></a><a href="%5Bhttps://%5D(https://www.luogu.com.cn/problem/P1352)">简单版本</a></h4><blockquote>
+<h3 id="简单版本"><a href="#简单版本" class="headerlink" title="简单版本"></a>简单版本</h3><blockquote>
 <p>树形DP的常规套路，考虑子节点对父节点的影响即可</p>
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N=<span class="number">1e5</span>+<span class="number">7</span>;</span><br><span class="line"><span class="type">int</span> n,x,w[N],f[N][<span class="number">2</span>];</span><br><span class="line">vector&lt;<span class="type">int</span>&gt;v[N];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> u)</span></span>&#123;</span><br><span class="line">    f[u][<span class="number">1</span>]=w[u];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> x:v[u])<span class="built_in">dfs</span>(x),f[u][<span class="number">1</span>]+=f[x][<span class="number">0</span>],f[u][<span class="number">0</span>]+=<span class="built_in">max</span>(f[x][<span class="number">1</span>],f[x][<span class="number">0</span>]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">2</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        cin&gt;&gt;x;</span><br><span class="line">        v[x].<span class="built_in">push_back</span>(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)cin&gt;&gt;w[i];</span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">1</span>);</span><br><span class="line">    cout&lt;&lt;<span class="built_in">max</span>(f[<span class="number">1</span>][<span class="number">1</span>],f[<span class="number">1</span>][<span class="number">0</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -24,7 +24,7 @@
         <category>算法</category>
       </categories>
       <tags>
-        <tag>树形DP</tag>
+        <tag>算法</tag>
       </tags>
   </entry>
 </search>
