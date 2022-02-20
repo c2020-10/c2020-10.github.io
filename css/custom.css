@@ -1,10 +1,3 @@
-@font-face {
-    font-family: 'arzhu';
-    src: url("/css/_data/kaiti.ttf");
-    /* 修改成你的字体 */
-    font-display: swap;
-}
-
 h1#site-title {
     font-family: arzhu!important
 }
@@ -35,7 +28,7 @@ a#site-name {
 
 #web_bg {
     /* 背景图像的地址（url括号里）  */
-    background: url("/css/_data/hide.jpg");
+    background-image: url();
     /* 背景图像不重复 */
     background-repeat: no-repeat;
     /* 背景图像大小 */
