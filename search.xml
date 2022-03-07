@@ -90,7 +90,21 @@
 <p>选中位数为最优</p>
 </blockquote>
 <h4 id="code-17"><a href="#code-17" class="headerlink" title="code"></a>code</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N=<span class="number">1e5</span>+<span class="number">7</span>;</span><br><span class="line"><span class="type">int</span> f[N];</span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)cin&gt;&gt;f[i];</span><br><span class="line">    <span class="built_in">nth_element</span>(f,f+n/<span class="number">2</span>,f+n);</span><br><span class="line">    <span class="type">int</span> k=f[n/<span class="number">2</span>];</span><br><span class="line">    <span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)ans+=<span class="built_in">abs</span>(f[i]-k);</span><br><span class="line">    cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3>]]></content>
+<h3 id="七夕祭"><a href="#七夕祭" class="headerlink" title="七夕祭"></a><a href="https://www.acwing.com/problem/content/107/">七夕祭</a></h3><p>设行的个数为T，存在四种情况<br>对于相等的两者都满足的情况$(T|n==0,T|m==0)$<br>对于满足行不满足列的情况$(T|n==0,T|m!=0)$<br>对于满足列不满足行的情况$(T|n!=0,T|m==0)$<br>两者都不满足的情况(T|n!=0,T|m!=0)<br>计算时采用贪心来求解</p>
+<h4 id="code-18"><a href="#code-18" class="headerlink" title="code"></a>code</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N=<span class="number">1e5</span>+<span class="number">7</span>;</span><br><span class="line"><span class="type">int</span> row[N],col[N],s[N],c[N];</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">work</span><span class="params">(<span class="type">int</span> n,<span class="type">int</span> a[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)s[i]=s[i<span class="number">-1</span>]+a[i];</span><br><span class="line">    <span class="keyword">if</span>(s[n]%n)<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    c[<span class="number">1</span>]=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> ave=s[n]/n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">2</span>;i&lt;=n;i++)c[i]=s[i<span class="number">-1</span>]-(i<span class="number">-1</span>)*ave;</span><br><span class="line">    <span class="built_in">sort</span>(c+<span class="number">1</span>,c+<span class="number">1</span>+n);</span><br><span class="line">    <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)res+=<span class="built_in">abs</span>(c[i]-c[(n+<span class="number">1</span>)/<span class="number">2</span>]);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n,m,t;</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m&gt;&gt;t;</span><br><span class="line">    <span class="keyword">while</span>(t--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> x,y;</span><br><span class="line">        cin&gt;&gt;x&gt;&gt;y;</span><br><span class="line">        row[x]++,col[y]++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> r=<span class="built_in">work</span>(n,row);</span><br><span class="line">    <span class="type">int</span> c=<span class="built_in">work</span>(m,col);</span><br><span class="line">    <span class="keyword">if</span>(r!=<span class="number">-1</span>&amp;&amp;c!=<span class="number">-1</span>)<span class="built_in">printf</span>(<span class="string">&quot;both %lld&quot;</span>,r+c);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(r!=<span class="number">-1</span>)<span class="built_in">printf</span>(<span class="string">&quot;row %lld&quot;</span>,r);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(c!=<span class="number">-1</span>)<span class="built_in">printf</span>(<span class="string">&quot;column %lld&quot;</span>,c);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;impossible&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="动态中位数"><a href="#动态中位数" class="headerlink" title="动态中位数"></a><a href="https://www.acwing.com/problem/content/108/">动态中位数</a></h3><blockquote>
+<p>用大根堆和小根堆维护</p>
+</blockquote>
+<h4 id="code-19"><a href="#code-19" class="headerlink" title="code"></a>code</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> T,x,n;</span><br><span class="line">    std::cin&gt;&gt;T;</span><br><span class="line">    <span class="keyword">while</span>(T--)&#123;</span><br><span class="line">        <span class="type">int</span> cnt=<span class="number">0</span>;</span><br><span class="line">        cin&gt;&gt;x&gt;&gt;n;</span><br><span class="line">        cout&lt;&lt;x&lt;&lt;<span class="string">&#x27; &#x27;</span>&lt;&lt;(n+<span class="number">1</span>)/<span class="number">2</span>&lt;&lt;endl;</span><br><span class="line">        priority_queue&lt;<span class="type">int</span>&gt;down;</span><br><span class="line">        priority_queue&lt;<span class="type">int</span>,vector&lt;<span class="type">int</span>&gt;,greater&lt;<span class="type">int</span>&gt;&gt;up;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">            cin&gt;&gt;x;</span><br><span class="line">            <span class="keyword">if</span>(down.<span class="built_in">empty</span>()||x&lt;=down.<span class="built_in">top</span>())down.<span class="built_in">push</span>(x);</span><br><span class="line">            <span class="keyword">else</span> up.<span class="built_in">push</span>(x);</span><br><span class="line">            <span class="keyword">if</span>(down.<span class="built_in">size</span>()&gt;up.<span class="built_in">size</span>()+<span class="number">1</span>)up.<span class="built_in">push</span>(down.<span class="built_in">top</span>()),down.<span class="built_in">pop</span>();</span><br><span class="line">            <span class="keyword">if</span>(up.<span class="built_in">size</span>()&gt;down.<span class="built_in">size</span>())down.<span class="built_in">push</span>(up.<span class="built_in">top</span>()),up.<span class="built_in">pop</span>();</span><br><span class="line">            <span class="keyword">if</span>(i%<span class="number">2</span>)&#123;</span><br><span class="line">                cout&lt;&lt;down.<span class="built_in">top</span>()&lt;&lt;<span class="string">&#x27; &#x27;</span>;</span><br><span class="line">                <span class="keyword">if</span>(++cnt%<span class="number">10</span>==<span class="number">0</span>)cout&lt;&lt;endl;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(cnt%<span class="number">10</span>)cout&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="超快速排序"><a href="#超快速排序" class="headerlink" title="超快速排序"></a><a href="https://www.acwing.com/problem/content/109/">超快速排序</a></h3><blockquote>
+<p>逆序对的数量</p>
+</blockquote>
+<h4 id="code-20"><a href="#code-20" class="headerlink" title="code"></a>code</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N=<span class="number">500005</span>;</span><br><span class="line">map&lt;<span class="type">int</span>,<span class="type">int</span>&gt;mp;</span><br><span class="line"><span class="type">int</span> idx,a[N],s[N],n;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">ask</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(;x;x-=x&amp;-x)res+=s[x];</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(;x&lt;=idx;x+=x&amp;-x)s[x]++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(cin&gt;&gt;n,n)&#123;</span><br><span class="line">        idx=<span class="number">0</span>;</span><br><span class="line">        mp.<span class="built_in">clear</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)cin&gt;&gt;a[i],mp[a[i]]++;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> [u,v]:mp)mp[u]=++idx;</span><br><span class="line">        <span class="type">long</span> <span class="type">long</span> ans=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=idx;i++)s[i]=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=n;i;i--)&#123;</span><br><span class="line">            ans+=<span class="built_in">ask</span>(mp[a[i]]<span class="number">-1</span>);</span><br><span class="line">            <span class="built_in">add</span>(mp[a[i]]);</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="奇数码问题"><a href="#奇数码问题" class="headerlink" title="奇数码问题"></a><a href="https://www.acwing.com/problem/content/110/">奇数码问题</a></h3><blockquote>
+<p>判断逆序对的数量奇偶性是否相同即可</p>
+</blockquote>
+<h4 id="code-21"><a href="#code-21" class="headerlink" title="code"></a>code</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">BIT</span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt;v;</span><br><span class="line">    <span class="built_in">BIT</span>(<span class="type">int</span> n):<span class="built_in">n</span>(n),<span class="built_in">v</span>(n)&#123;&#125;;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">ask</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">        <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(;x;x-=x&amp;-x)res+=v[x<span class="number">-1</span>];</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(;x&lt;n;x+=x&amp;-x)v[x<span class="number">-1</span>]++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="keyword">while</span>(cin&gt;&gt;n)&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt;<span class="built_in">a</span>(n*n),<span class="built_in">b</span>(n*n);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;x:a)cin&gt;&gt;x;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;x:b)cin&gt;&gt;x;</span><br><span class="line">        <span class="function">BIT <span class="title">A</span><span class="params">(n*n)</span>,<span class="title">B</span><span class="params">(n*n)</span></span>;</span><br><span class="line">        <span class="built_in">reverse</span>(a.<span class="built_in">begin</span>(),a.<span class="built_in">end</span>());</span><br><span class="line">        <span class="type">long</span> <span class="type">long</span> ans1=<span class="number">0</span>,ans2=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> x:a)&#123;</span><br><span class="line">            <span class="keyword">if</span>(!x)<span class="keyword">continue</span>;</span><br><span class="line">            ans1+=A.<span class="built_in">ask</span>(x);</span><br><span class="line">            A.<span class="built_in">add</span>(x);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">reverse</span>(b.<span class="built_in">begin</span>(),b.<span class="built_in">end</span>());</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> x:b)&#123;</span><br><span class="line">            <span class="keyword">if</span>(!x)<span class="keyword">continue</span>;</span><br><span class="line">            ans2+=B.<span class="built_in">ask</span>(x);</span><br><span class="line">            B.<span class="built_in">add</span>(x);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>((ans1&amp;<span class="number">1</span>)==(ans2&amp;<span class="number">1</span>))cout&lt;&lt;<span class="string">&quot;TAK&quot;</span>&lt;&lt;endl;</span><br><span class="line">        <span class="keyword">else</span> cout&lt;&lt;<span class="string">&quot;NIE&quot;</span>&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
       <categories>
         <category>算法竞赛进阶指南</category>
       </categories>
@@ -490,6 +504,84 @@
 <blockquote>
 <p>基站发出的信号可以经过多个障碍物的数次反射，从多条路径、按不同时间到达接收方。多条路径的信号叠加后一般都会产生很大的失真，这就是所谓的多径效应。</p>
 </blockquote>
+<h3 id="信道复用技术"><a href="#信道复用技术" class="headerlink" title="信道复用技术"></a>信道复用技术</h3><h4 id="频分复用-时分复用和统计时分复用"><a href="#频分复用-时分复用和统计时分复用" class="headerlink" title="频分复用,时分复用和统计时分复用"></a>频分复用,时分复用和统计时分复用</h4><p>复用 (multiplexing) ：允许用户使用一个共享信道进行通信。</p>
+<p><em>频分复用</em></p>
+<blockquote>
+<p>所有用户在同样的时间占用不同的带宽（即频带）资源。</p>
+</blockquote>
+<p><em>时分复用</em></p>
+<blockquote>
+<p>所有用户在不同的时间占用同样的频带宽度</p>
+</blockquote>
+<p>频分多址与时分多址</p>
+<blockquote>
+<p>频分多址:可让 N 个用户各使用一个频带，或让更多的用户轮流使用这 N 个频带。这种方式称为频分多址接入 FDMA (Frequency Division Multiple Access)，简称为频分多址<br>时分多址:可让 N 个用户各使用一个时隙，或让更多的用户轮流使用这 N 个时隙。这种方式称为时分多址接入 TDMA (Time Division Multiple Access)，简称为时分多址。</p>
+</blockquote>
+<p><em>统计时分复用</em></p>
+<blockquote>
+<p>动态分配时隙</p>
+</blockquote>
+<h4 id="波分复用"><a href="#波分复用" class="headerlink" title="波分复用"></a>波分复用</h4><blockquote>
+<p>波分复用 WDM (Wavelength Division Multiplexing) ：就是光的频分复用。使用一根光纤来同时传输多个光载波信号。</p>
+</blockquote>
+<h4 id="码分复用"><a href="#码分复用" class="headerlink" title="码分复用"></a>码分复用</h4><p>每一个用户可以在<code>同样的时间</code>使用<code>同样的频带</code>进行通信。<br>各用户使用经过特殊挑选的不同码型，因此不会造成干扰。<br>当<code>码分复用 CDM</code> (Code Division Multiplexing) 信道为多个不同地址的用户所共享时，就称为<code>码分多址 CDMA</code> (Code Division Multiple Access)。</p>
+<p>CMDA工作原理</p>
+<blockquote>
+<p>将每一个比特时间划分为 m 个短的间隔，称为码片 (chip)。</p>
+</blockquote>
+<p>计算</p>
+<blockquote>
+<p>设站码片序列为A(n),收到的码片序列为S(n)<br>发送信息为$\frac{\sum_{i=1}^n{A_i*S_i}}{n}$</p>
+</blockquote>
+<h3 id="数字传输系统"><a href="#数字传输系统" class="headerlink" title="数字传输系统"></a>数字传输系统</h3><blockquote>
+<p>早前采用<code>频分复用FDM</code>的模拟传输方式<br>目前采用<code>时分复用PCM</code>的数字传输方式</p>
+</blockquote>
+<p>早期数字传输系统的缺点</p>
+<blockquote>
+<p>速率标准不统一。北美（1.544 Mbit/s）欧洲(2.048Mbit/s)\<br>不是同步传输</p>
+</blockquote>
+<h3 id="宽带接入技术"><a href="#宽带接入技术" class="headerlink" title="宽带接入技术"></a>宽带接入技术</h3><p>宽带:<code>宽带下行速率达 25 Mbit/s，宽带上行速率达 3 Mbit/s。</code></p>
+<p>根据宽带接入媒体划分:有线宽带接入,无线宽带接入</p>
+<h4 id="ADSL-技术"><a href="#ADSL-技术" class="headerlink" title="ADSL 技术"></a>ADSL 技术</h4><blockquote>
+<p>非对称数字用户线 ADSL (Asymmetric Digital Subscriber Line) 技术：用数字技术对现有的模拟电话用户线进行改造，使它能够承载宽带业务。</p>
+</blockquote>
+<p>ADSL 调制解调器</p>
+<blockquote>
+<p>采用离散多音调 DMT（Discrete Multi-Tone）调制技术。<br>DMT 调制技术采用频分复用 FDM 方法。<br>ADSL 不能保证固定的数据率。</p>
+</blockquote>
+<p>ADSL 的组成</p>
+<blockquote>
+<p>数字用户线接入复用器 DSLAM（DSL Access Multiplexer），用户线和用户家中的一些设施</p>
+</blockquote>
+<p>xDSL</p>
+<blockquote>
+<p>SDSL (Symmetric DSL)：对称数字用户线<br>HDSL (High speed DSL)：高速数字用户线<br>VDSL (Very high speed DSL)：甚高速数字用户线<br>Giga DSL：超高速数字用户线</p>
+</blockquote>
+<h4 id="光纤同轴混合网（HFC-网）"><a href="#光纤同轴混合网（HFC-网）" class="headerlink" title="光纤同轴混合网（HFC 网）"></a>光纤同轴混合网（HFC 网）</h4><blockquote>
+<p>HFC (Hybrid Fiber Coax) 网基于有线电视网 CATV 网。<br>改造：把原有线电视网中的同轴电缆主干部分改换为光纤</p>
+</blockquote>
+<p>HFC 网具有双向传输功能，扩展了传输频带</p>
+<p>光配线网 ODN (Optical Distribution Network)</p>
+<blockquote>
+<p>光配线网 ODN (Optical Distribution Network)：位于光纤干线和广大用户之间。</p>
+</blockquote>
+<p>无源的光配线网常称为无源光网络 PON (Passive Optical Network)。</p>
+<p>采用波分复用 WDM，上行和下行分别使用不同的波长。</p>
+<blockquote>
+<p>2 种最流行的无源光网络 PON (Passive Optical Network)：<br>以太网无源光网络 EPON (Ethernet PON)<br>吉比特无源光网络 GPON (Gigabit PON)</p>
+</blockquote>
+<p>接入方式总结</p>
+<ul>
+<li>PSTN接入方式</li>
+<li>ISDN接入方式</li>
+<li>DNN接入方式</li>
+<li>xDSL接入方式</li>
+<li>VDSL接入方式</li>
+<li>Cable Modem接入 </li>
+<li>LAN接入 </li>
+<li>光纤接入网</li>
+<li>PLC电力线通信</li>
+</ul>
 ]]></content>
       <categories>
         <category>计算机基础</category>
