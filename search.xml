@@ -561,9 +561,10 @@
 <p>HFC (Hybrid Fiber Coax) 网基于有线电视网 CATV 网。<br>改造：把原有线电视网中的同轴电缆主干部分改换为光纤</p>
 </blockquote>
 <p>HFC 网具有双向传输功能，扩展了传输频带</p>
+<h4 id="FTTx-技术"><a href="#FTTx-技术" class="headerlink" title="FTTx 技术"></a>FTTx 技术</h4><p>代表多种宽带光纤接入方式。</p>
 <p>光配线网 ODN (Optical Distribution Network)</p>
 <blockquote>
-<p>光配线网 ODN (Optical Distribution Network)：位于光纤干线和广大用户之间。</p>
+<p>位于光纤干线和广大用户之间。</p>
 </blockquote>
 <p>无源的光配线网常称为无源光网络 PON (Passive Optical Network)。</p>
 <p>采用波分复用 WDM，上行和下行分别使用不同的波长。</p>
