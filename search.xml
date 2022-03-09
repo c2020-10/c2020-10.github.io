@@ -637,9 +637,10 @@
 </blockquote>
 </li>
 </ul>
-<h4 id="PPP协议的帧格式"><a href="#PPP协议的帧格式" class="headerlink" title="PPP协议的帧格式"></a>PPP协议的帧格式</h4><p><img src="/image/jiwang/3_2_3.png" alt="帧格式"></p>
+<h4 id="PPP协议的帧格式"><a href="#PPP协议的帧格式" class="headerlink" title="PPP协议的帧格式"></a>PPP协议的帧格式</h4><p><img src="/image/jiwang/3_2_2.png" alt="帧格式"></p>
 <p>透明传输问题:<br>当 PPP 用在异步传输时，使用字节填充法。<br>当 PPP 用在同步传输链路时，采用零比特填充法。  </p>
-<h4 id="PPP协议的工作状态"><a href="#PPP协议的工作状态" class="headerlink" title="PPP协议的工作状态"></a>PPP协议的工作状态</h4><pre><code>PPP 链路初始化过程：
+<h4 id="PPP协议的工作状态"><a href="#PPP协议的工作状态" class="headerlink" title="PPP协议的工作状态"></a>PPP协议的工作状态</h4><p><img src="/image/jiwang/3_2_3.png" alt="PPP协议工作状态"></p>
+<pre><code>PPP 链路初始化过程：
 用户拨号接入 ISP 后，就建立了一条从用户个人电脑到 ISP 的物理连接。
 用户个人电脑向 ISP 发送一系列的链路控制协议 LCP 分组（封装成多个 PPP 帧），以便建立LCP连接。
 之后进行网络层配置。网络控制协议 NCP 给新接入的用户个人电脑分配一个临时的 IP 地址。
