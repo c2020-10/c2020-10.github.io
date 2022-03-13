@@ -602,7 +602,7 @@
 </li>
 </ul>
 <ul>
-<li><p>差错控制</p>
+<li><p>差错检测</p>
 <p>  在一段时间内，传输错误的比特占所传输比特总数的比率称为<code>误码率</code> BER (Bit Error Rate)。</p>
 <p>  <code>循环冗余检验 CRC 原理</code></p>
 <blockquote>
@@ -645,7 +645,93 @@
 用户个人电脑向 ISP 发送一系列的链路控制协议 LCP 分组（封装成多个 PPP 帧），以便建立LCP连接。
 之后进行网络层配置。网络控制协议 NCP 给新接入的用户个人电脑分配一个临时的 IP 地址。
 当用户通信完毕时，NCP 释放网络层连接，收回原来分配出去的IP地址。LCP 释放数据链路层连接。最后释放的是物理层的连接。
-</code></pre>]]></content>
+</code></pre><h3 id="使用广播信道的数据链路层"><a href="#使用广播信道的数据链路层" class="headerlink" title="使用广播信道的数据链路层"></a>使用广播信道的数据链路层</h3><h4 id="局域网的数据链路层"><a href="#局域网的数据链路层" class="headerlink" title="局域网的数据链路层"></a>局域网的数据链路层</h4><p>局域网最主要的特点：网络为一个单位所拥有；地理范围和站点数目均有限。 </p>
+<p>局域网具有如下主要优点：</p>
+<blockquote>
+<p>具有广播功能，从一个站点可很方便地访问全网。<br>便于系统的扩展和逐渐地演变，各设备的位置可灵活调整和改变。<br>提高了系统的可靠性、可用性和生存性。</p>
+</blockquote>
+<p>局域网拓扑结构</p>
+<blockquote>
+<p>a)星形网 b)环形网 3)总线网</p>
+</blockquote>
+<p>共享信道带来的问题:</p>
+<blockquote>
+<p>若多个设备在共享的广播信道上同时发送数据，则会造成彼此干扰，导致发送失败。</p>
+</blockquote>
+<p>媒体共享技术:<br>静态划分信道</p>
+<blockquote>
+<p>频分复用<br>时分复用<br>统计时分复用<br>波分复用<br>码分复用 </p>
+</blockquote>
+<p>动态媒体接入控制(多点接入):</p>
+<blockquote>
+<p>随机接入<br>受控接入</p>
+</blockquote>
+<ul>
+<li>以太网的两个主要标准</li>
+</ul>
+<p>为了是数据链路层能更好的适应多种局域网标准，数据链路层拆成两个子层：逻辑链路控制(LIC)子层和媒体接入控制(MAC)子层</p>
+<ul>
+<li>适配器的作用</li>
+</ul>
+<p>适配器的重要功能：</p>
+<blockquote>
+<p>进行串行/并行转换。<br>对数据进行缓存。<br>在计算机的操作系统安装设备驱动程序。<br>实现以太网协议。</p>
+</blockquote>
+<h4 id="CSMA-CD-协议"><a href="#CSMA-CD-协议" class="headerlink" title="CSMA/CD 协议"></a>CSMA/CD 协议</h4><p>总线特点：易于实现广播通信，简单，可靠。 </p>
+<p>为了实现一对一通信，将接收站的硬件地址写入帧首部中的目的地址字段中。仅当数据帧中的目的地址与适配器硬件地址一致时，才能接收这个数据帧。</p>
+<p>总线缺点：多个站点同时发送时，会产生发送碰撞或冲突，导致发送失败。</p>
+<p>以太网采取了两种重要的措施</p>
+<blockquote>
+<p>(1) 采用较为灵活的无连接的工作方式。<br>不必先建立连接就可以直接发送数据。<br>对发送的数据帧不进行编号，也不要求对方发回确认。<br>(2) 发送的数据都使用曼彻斯特 (Manchester) 编码。</p>
+</blockquote>
+<p>CSMA/CD 协议的要点</p>
+<blockquote>
+<p>多点接入：说明这是总线型网络。许多计算机以多点接入的方式连接在一根总线上。<br>载波监听：即“边发送边监听”。不管在想要发送数据之前，还是在发送数据之中，每个站都必须不停地检测信道。<br>碰撞检测：适配器边发送数据，边检测信道上的信号电压的变化情况。电压摆动值超过一定的门限值时，就认为总线上至少有两个站同时在发送数据，表明产生了碰撞（或冲突）。<br><img src="/image/jiwang/3_3_2.png" alt="碰撞检测"></p>
+</blockquote>
+<p>争用期：以太网的端到端往返时延 2t  称为争用期，或碰撞窗口。</p>
+<p>碰撞后重传的时机</p>
+<blockquote>
+<p>采用截断二进制指数退避 (truncated binary exponential backoff) 确定。</p>
+</blockquote>
+<p>强化碰撞：人为干扰信号</p>
+<blockquote>
+<p>发送站检测到冲突后，立即停止发送数据帧，接着就发送 32 或 48 比特的人为干扰信号 (jamming signal) 。<br>以太网还规定了帧间最小间隔为 9.6 μs。</p>
+</blockquote>
+<h4 id="使用集线器的星形拓扑"><a href="#使用集线器的星形拓扑" class="headerlink" title="使用集线器的星形拓扑"></a>使用集线器的星形拓扑</h4><p>传统以太网传输媒体：粗同轴电缆 → 细同轴电缆 → 双绞线。<br>采用双绞线的以太网采用星形拓扑。<br>在星形的中心则增加了一种可靠性非常高的设备，叫做集线器 (hub)。</p>
+<h4 id="以太网的信道利用率"><a href="#以太网的信道利用率" class="headerlink" title="以太网的信道利用率"></a>以太网的信道利用率</h4><p>单程端到端传播时延 = t ，则争用期长度 = 2t  。检测到碰撞后不发送干扰信号。<br>帧长 = L (bit)，数据发送速率 = C (bit/s)，则帧的发送时间  T0 = L/C (s)。 </p>
+<h4 id="以太网的-MAC-层"><a href="#以太网的-MAC-层" class="headerlink" title="以太网的 MAC 层"></a>以太网的 MAC 层</h4><ul>
+<li>MAC 层的硬件地址</li>
+</ul>
+<p><code>硬件地址</code>又称为<code>物理地址</code>，或<code>MAC 地址</code>。<br>IEEE 802 标准为局域网规定了一种 48 位的全球地址（简称为地址）是指局域网上的每一台计算机中<code>固化在适配器的 ROM</code>中的地址。</p>
+<p>48 位的  MAC 地址<br><img src="/image/jiwang/3_3_2.png" alt="MAC地址"></p>
+<blockquote>
+<p>IEEE 注册管理机构 RA 负责向厂家分配前 3 个字节 (即高 24 位)，称为组织唯一标识符 OUI (Organizationally Unique Identifier)。<br>厂家自行指派后 3 个字节 (即低 24 位)，称为扩展标识符 。<br>必须保证生产出的适配器没有重复地址。<br>地址被固化在适配器的 ROM 中。</p>
+</blockquote>
+<p>单站地址，组地址，广播地址</p>
+<blockquote>
+<p>单站地址：I/G 位 = 0。<br>组地址：I/G 位 = 1。组地址用来进行多播。<br>广播地址：所有 48 位都为 1（全 1）。只能作为目的地址使用。</p>
+</blockquote>
+<p>全球管理与本地管理</p>
+<blockquote>
+<p>全球管理：G/L 位 = 0。厂商向 IEEE 购买的 OUI 都属于全球管理。<br>本地管理：G/L 位 = 1。 这时用户可任意分配网络上的地址。</p>
+</blockquote>
+<p>适配器具有过滤功能</p>
+<blockquote>
+<p>每收到一个 MAC 帧，先用硬件检查帧中的 MAC 地址。<br>如果是发往本站的帧则收下，然后再进行其他的处理。<br>否则就将此帧丢弃，不再进行其他的处理。</p>
+</blockquote>
+<p>3种帧模式</p>
+<blockquote>
+<p>单播 (unicast) 帧（一对一）<br>广播 (broadcast) 帧（一对全体）<br>多播 (multicast) 帧（一对多）</p>
+</blockquote>
+<ul>
+<li>MAC 帧的格式</li>
+</ul>
+<p>常用的以太网 MAC 帧格式有 2 种标准：<br>DIX Ethernet V2 标准<br>IEEE 的 802.3 标准<br>最常用的 MAC 帧是以太网 V2 的格式。</p>
+<p>无效的 MAC 帧 </p>
+<blockquote>
+<p>数据字段的长度与长度字段的值不一致；<br>帧的长度不是整数个字节；<br>用收到的帧检验序列 FCS 查出有差错；<br>数据字段的长度不在 46 ~ 1500 字节之间。<br>有效的 MAC 帧长度为 64 ~ 1518 字节之间。</p>
+</blockquote>
+]]></content>
       <categories>
         <category>计算机基础</category>
       </categories>
