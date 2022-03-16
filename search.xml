@@ -153,7 +153,7 @@
 <h4 id="code-1"><a href="#code-1" class="headerlink" title="code"></a>code</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int long long </span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> n,m;</span><br><span class="line"><span class="type">int</span> g[<span class="number">26</span>][<span class="number">26</span>];</span><br><span class="line"><span class="type">int</span> f[<span class="number">1</span>&lt;&lt;<span class="number">20</span>];</span><br><span class="line">string s;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">	cin&gt;&gt;s;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)g[s[i<span class="number">-1</span>]-<span class="string">&#x27;a&#x27;</span>][s[i]-<span class="string">&#x27;a&#x27;</span>]++,g[s[i]-<span class="string">&#x27;a&#x27;</span>][s[i<span class="number">-1</span>]-<span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">	<span class="built_in">memset</span>(f,<span class="number">0x3f</span>,<span class="keyword">sizeof</span> f);</span><br><span class="line">	f[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;<span class="number">1</span>&lt;&lt;m;i++)&#123;</span><br><span class="line">		<span class="type">int</span> sum=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;m;j++)</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> k=j+<span class="number">1</span>;k&lt;m;k++)</span><br><span class="line">				<span class="keyword">if</span>((i&gt;&gt;j&amp;<span class="number">1</span>)^(i&gt;&gt;k&amp;<span class="number">1</span>))</span><br><span class="line">					sum+=g[j][k];</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;m;j++)</span><br><span class="line">			<span class="keyword">if</span>(i&gt;&gt;j&amp;<span class="number">1</span>)</span><br><span class="line">				f[i]=<span class="built_in">min</span>(f[i-(<span class="number">1</span>&lt;&lt;j)]+sum,f[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;f[(<span class="number">1</span>&lt;&lt;m)<span class="number">-1</span>]&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">solve</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>简单算法</category>
+        <category>算法入门</category>
       </categories>
       <tags>
         <tag>算法</tag>
@@ -731,6 +731,63 @@
 <blockquote>
 <p>数据字段的长度与长度字段的值不一致；<br>帧的长度不是整数个字节；<br>用收到的帧检验序列 FCS 查出有差错；<br>数据字段的长度不在 46 ~ 1500 字节之间。<br>有效的 MAC 帧长度为 64 ~ 1518 字节之间。</p>
 </blockquote>
+<h3 id="以太网的扩展层"><a href="#以太网的扩展层" class="headerlink" title="以太网的扩展层"></a>以太网的扩展层</h3><p>背景知识</p>
+<blockquote>
+<p>广播域:当一个站点发送广播报文或广播帧时，凡能接收到该报文或帧的区域，称为广播域<br>冲突域:当一个站点发送数据，另外一个站点同时发送数据时就会出现冲突的区域，称为碰撞域。</p>
+</blockquote>
+<h4 id="在物理层扩展以太网"><a href="#在物理层扩展以太网" class="headerlink" title="在物理层扩展以太网"></a>在物理层扩展以太网</h4><blockquote>
+<p>优点:使原来属于不同碰撞域（冲突域）的计算机能够跨碰撞域通信。<br>扩大了以太网覆盖的地理范围。<br>缺点:碰撞域增大了，总的吞吐量未提高。<br>如果使用不同的以太网技术（如数据率不同），那么就不能用集线器将它们互连起来。 </p>
+</blockquote>
+<p>碰撞域（collision domain）又称为冲突域，指网络中一个站点发出的帧会与其他站点发出的帧产生碰撞或冲突的那部分网络。<br>碰撞域越大，发生碰撞的概率越高。</p>
+<h4 id="在数据链路层扩展以太网"><a href="#在数据链路层扩展以太网" class="headerlink" title="在数据链路层扩展以太网"></a>在数据链路层扩展以太网</h4><p>网桥:工作在数据链路层。根据 MAC 帧的目的地址对收到的帧进行转发和过滤。或者转发，或者丢弃。<br>交换机:工作在数据链路层。多端口的网桥。可明显地提高以太网的性能。</p>
+<ul>
+<li><p>以太网交换机的特点 </p>
+<p>  实质上是一个<code>多接口网桥</code>。<br>  通常有十几个或更多的接口。<br>  每个接口都直接与一个单台主机或另一个以太网交换机相连，并且一般都工作在<code>全双工方式</code>。<br>  以太网交换机具有<code>并行性</code>。<br>  接口有存储器。<br>  即插即用。其内部的帧<code>交换表</code>（又称为地址表）是通过<code>自学习算法</code>自动地逐渐建立起来的。这种交换表就是一个内容可寻址存储器CAM (Content addressable Memory)。<br>  使用<code>专用的交换结构芯片</code>，用硬件转发，其转发速率要比使用软件转发的网桥快很多。</p>
+</li>
+<li><p>以太网交换机的自学习功能</p>
+<p>  考虑到可能有时要在交换机的接口更换主机，或者主机要更换其网络适配器，这就需要更改交换表中的项目。为此，在交换表中每个项目都设有一定的有效时间（默认300秒）。过期的项目就自动被删除。</p>
+</li>
+</ul>
+<p>存在的问题：回路</p>
+<p>消除回路：使用生成树协议（SPT）</p>
+<p>生成树协议 STP  (Spanning Tree Protocol) 要点：<br>不改变网络的实际拓扑，但在逻辑上则切断某些链路，使得从一台主机到所有其他主机的路径是无环路的树状结构，从而消除了兜圈子现象</p>
+<ul>
+<li>从总线以太网到星形以太网</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">早期</th>
+<th style="text-align:center">现在</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">采用无源的总线结构。</td>
+<td style="text-align:center">以太网交换机为中心的星形结构</td>
+</tr>
+<tr>
+<td style="text-align:center">使用 CSMA/CD 协议，以半双工方式工作。</td>
+<td style="text-align:center">不使用共享总线，没有碰撞问题，不使用 CSMA/CD 协议，以全双工方式工作。但仍然采用以太网的帧结构。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="虚拟局域网"><a href="#虚拟局域网" class="headerlink" title="虚拟局域网"></a>虚拟局域网</h3><p>以太网主要存在的问题</p>
+<blockquote>
+<p>广播风暴<br>安全问题<br>管理困难</p>
+</blockquote>
+<h2 id="高速以太网"><a href="#高速以太网" class="headerlink" title="高速以太网"></a>高速以太网</h2><h3 id="100BASE-T-以太网"><a href="#100BASE-T-以太网" class="headerlink" title="100BASE-T 以太网"></a>100BASE-T 以太网</h3><pre><code>快速以太网 (Fast Ethernet)。
+在双绞线上传送 100 Mbit/s 基带信号的星形拓扑以太网
+</code></pre><h3 id="吉比特以太网"><a href="#吉比特以太网" class="headerlink" title="吉比特以太网"></a>吉比特以太网</h3><pre><code>一种来自现有的以太网，另一种则是美国国家标准协会 ANSI 制定的光纤通道 FC (Fiber Channel)。
+</code></pre><h3 id="10-吉比特以太网-10GE-和更快的以太网"><a href="#10-吉比特以太网-10GE-和更快的以太网" class="headerlink" title="10 吉比特以太网 (10GE) 和更快的以太网"></a>10 吉比特以太网 (10GE) 和更快的以太网</h3><pre><code>万兆比特。
+与 10、100 Mbit/s 和 1 Gbit/s 以太网的帧格式完全相同。
+保留了 IEEE 802.3 标准规定的以太网最小和最大帧长。
+只使用光纤作为传输媒体。
+只工作在全双工方式，没有争用问题，不使用 CSMA/CD 协议。 
+</code></pre><h3 id="使用以太网进行宽带接入"><a href="#使用以太网进行宽带接入" class="headerlink" title="使用以太网进行宽带接入"></a>使用以太网进行宽带接入</h3><p>以太网宽带接入具有以下特点：<br>可以提供双向的宽带通信。<br>可以根据用户对带宽的需求灵活地进行带宽升级。<br>可以实现端到端的以太网传输，中间不需要再进行帧格式的转换。<br>但不支持用户身份鉴别。</p>
+<p>PPPoE (PPP over Ethernet) ：在以太网上运行 PPP。<br>将 PPP 帧封装到以太网中来传输。<br>现在的光纤宽带接入 FTTx 都要使用 PPPoE 的方式进行接入。<br>利用 ADSL 进行宽带上网时，从用户个人电脑到家中的 ADSL 调制解调器之间的连接也使用 RJ-45 和 5 类线，也使用 PPPoE。</p>
 ]]></content>
       <categories>
         <category>计算机基础</category>
