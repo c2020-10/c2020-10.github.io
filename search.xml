@@ -113,9 +113,13 @@
       </tags>
   </entry>
   <entry>
-    <title>cf641-2</title>
+    <title>Codeforces Round 641 (Div. 2)</title>
     <url>/2022/03/17/cf641-2/</url>
-    <content><![CDATA[<p>$gcd(lcm({a<em>i,a_j})|i&lt;j)$<br>$gcd(lcm(a_1,a_2)…lcm(a_1,a_x)…lcm(a</em>{x-1},a_x))$<br>$gcd_1=gcd(lcm(a_1,a_2),lcm(a_1,a_3)…lcm(a_1,a_x))$<br>$gcd_1=lcm(a_1,gcd(a_2,a_3…a_x))$<br>$…$</p>
+    <content><![CDATA[<p>$gcd(lcm({a_i,a_j})|i&lt;j)$</p>
+<p>$gcd(lcm(a<em>1,a_2)…lcm(a_1,a_x)…lcm(a</em>{x-1},a_x))$</p>
+<p>$gcd_1=gcd(lcm(a_1,a_2),lcm(a_1,a_3)…lcm(a_1,a_x))$</p>
+<p>$gcd_1=lcm(a_1,gcd(a_2,a_3…a_x))$</p>
+<p>$…$</p>
 <p>$gcd((lcm({a_i,a_j})|i&lt;j)=gcd(gcd_1,gcd_2…gcd_x)$</p>
 ]]></content>
   </entry>
@@ -187,17 +191,6 @@
       </categories>
       <tags>
         <tag>计算机知识</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>线性代数</title>
-    <url>/2022/02/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>数学</category>
-      </categories>
-      <tags>
-        <tag>线性代数</tag>
       </tags>
   </entry>
   <entry>
