@@ -113,17 +113,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Codeforces Round 641 (Div. 2)</title>
-    <url>/2022/03/17/cf641-2/</url>
-    <content><![CDATA[<p>$gcd(lcm({a_i,a_j})|i&lt;j)$</p>
-<p>$gcd(lcm(a<em>1,a_2)…lcm(a_1,a_x)…lcm(a</em>{x-1},a_x))$</p>
-<p>$gcd_1=gcd(lcm(a_1,a_2),lcm(a_1,a_3)…lcm(a_1,a_x))$</p>
-<p>$gcd_1=lcm(a_1,gcd(a_2,a_3…a_x))$</p>
-<p>$…$</p>
-<p>$gcd((lcm({a_i,a_j})|i&lt;j)=gcd(gcd_1,gcd_2…gcd_x)$</p>
-]]></content>
-  </entry>
-  <entry>
     <title>动态规划</title>
     <url>/2022/02/08/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[<h2 id="树形DP"><a href="#树形DP" class="headerlink" title="树形DP"></a>树形DP</h2><h3 id="洛谷p1352"><a href="#洛谷p1352" class="headerlink" title="洛谷p1352"></a>洛谷p1352</h3><h4 id="简单版本"><a href="#简单版本" class="headerlink" title="简单版本"></a>简单版本</h4><blockquote>
@@ -169,6 +158,17 @@
       <tags>
         <tag>算法</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Codeforces Round 641 (Div. 2)</title>
+    <url>/2022/03/17/cf641-2/</url>
+    <content><![CDATA[<p>$gcd(lcm({a_i,a_j})|i&lt;j)$</p>
+<p>$gcd(lcm(a<em>1,a_2)…lcm(a_1,a_x)…lcm(a</em>{x-1},a_x))$</p>
+<p>$gcd_1=gcd(lcm(a_1,a_2),lcm(a_1,a_3)…lcm(a_1,a_x))$</p>
+<p>$gcd_1=lcm(a_1,gcd(a_2,a_3…a_x))$</p>
+<p>$…$</p>
+<p>$gcd((lcm({a_i,a_j})|i&lt;j)=gcd(gcd_1,gcd_2…gcd_x)$</p>
+]]></content>
   </entry>
   <entry>
     <title>操作系统概念精要</title>
