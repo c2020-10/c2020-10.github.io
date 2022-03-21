@@ -789,7 +789,123 @@
 只工作在全双工方式，没有争用问题，不使用 CSMA/CD 协议。 
 </code></pre><h4 id="使用以太网进行宽带接入"><a href="#使用以太网进行宽带接入" class="headerlink" title="使用以太网进行宽带接入"></a>使用以太网进行宽带接入</h4><p>以太网宽带接入具有以下特点：<br>可以提供双向的宽带通信。<br>可以根据用户对带宽的需求灵活地进行带宽升级。<br>可以实现端到端的以太网传输，中间不需要再进行帧格式的转换。<br>但不支持用户身份鉴别。</p>
 <p>PPPoE (PPP over Ethernet) ：在以太网上运行 PPP。<br>将 PPP 帧封装到以太网中来传输。<br>现在的光纤宽带接入 FTTx 都要使用 PPPoE 的方式进行接入。<br>利用 ADSL 进行宽带上网时，从用户个人电脑到家中的 ADSL 调制解调器之间的连接也使用 RJ-45 和 5 类线，也使用 PPPoE。</p>
-]]></content>
+<hr>
+<h2 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h2><h3 id="网络层的几个重要概念"><a href="#网络层的几个重要概念" class="headerlink" title="网络层的几个重要概念"></a>网络层的几个重要概念</h3><h4 id="网络层提供的两个服务"><a href="#网络层提供的两个服务" class="headerlink" title="网络层提供的两个服务"></a>网络层提供的两个服务</h4><ul>
+<li><p>一种观点:让网络负责可靠交付</p>
+<p>  计算机网络<code>模仿电信网络</code>，使用<code>面向连接</code>的通信方式。<br>  通信之前先建立<code>虚电路</code> VC (Virtual Circuit) (即连接)，以保证双方通信所需的一切网络资源。<br>  如果再使用<code>可靠传输</code>的网络协议，可使所发送的分组无差错按序到达终点，不丢失、不重复。</p>
+<p>  虚电路只是一条<code>逻辑上的连接</code>,分组都沿着这条逻辑连接按照存储转发方式传送,并不是真正建立一条<code>物理连接</code></p>
+</li>
+<li><p>另一种观点：网络提供数据报服务<br>  互联网采用的设计思路：<code>网络层要设计得尽量简单，向其上层只提供简单灵活的、无连接的、尽最大努力交付的数据报服务</code>。<br>  由主机中的<code>运输层</code>负责可靠的通信。 </p>
+</li>
+</ul>
+<p><img src="/image/jiwang/4_1_1.png" alt="虚电路服务与数据服务对比"></p>
+<h4 id="网络层的两个层面"><a href="#网络层的两个层面" class="headerlink" title="网络层的两个层面"></a>网络层的两个层面</h4><p>在路由器之间传送的信息有 2 大类：<code>转发源主机和目的主机之间所传送的数据</code>,<code>传送路由信息</code></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">数据层面</th>
+<th style="text-align:center">控制层面</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">路由器根据本路由器生成的<code>转发表</code>，把收到的分组从查找到的对应接口<code>转发</code>出去。</td>
+<td style="text-align:center">根据路由选择协议所用的路由算法<code>计算路由</code>，创建出本路由器的<code>路由表</code>。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>独立</code>工作。</td>
+<td style="text-align:center">许多路由器<code>协同</code>动作。</td>
+</tr>
+<tr>
+<td style="text-align:center">采用<code>硬件</code>进行转发，快。</td>
+<td style="text-align:center">采用<code>软件</code>计算，慢。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>软件定义网络 SDN (Software Defined Network)</p>
+<h3 id="网际协议IP"><a href="#网际协议IP" class="headerlink" title="网际协议IP"></a>网际协议IP</h3><p>与网际协议 IPv4 配套的 3 个协议：<br>    地址解析协议 ARP (Address Resolution Protocol)<br>    网际控制报文协议 ICMP (Internet Control Message Protocol)<br>    网际组管理协议 IGMP (Internet Group Management Protocol)</p>
+<h4 id="虚拟互连网络"><a href="#虚拟互连网络" class="headerlink" title="虚拟互连网络"></a>虚拟互连网络</h4><p>使用中间设备进行互连</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">层</th>
+<th style="text-align:center">中间设备</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">运输层及以上</td>
+<td style="text-align:center">网关 (gateway)</td>
+</tr>
+<tr>
+<td style="text-align:center">网络层</td>
+<td style="text-align:center">路由器 (router)</td>
+</tr>
+<tr>
+<td style="text-align:center">数据链路层</td>
+<td style="text-align:center">网桥或桥接器 (bridge)，交换机 (switch)</td>
+</tr>
+<tr>
+<td style="text-align:center">物理层</td>
+<td style="text-align:center">转发器 (repeater)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code>使用转发器或网桥不称为网络互连</code></p>
+<p>IP 网的意义:<br>当互联网上的主机进行通信时，就好像在一个网络上通信一样，看不见互连的各具体的网络异构细节。<br><code>如果在这种覆盖全球的 IP 网的上层使用 TCP 协议，那么就是现在的互联网 (Internet)。</code></p>
+<h4 id="IP-地址"><a href="#IP-地址" class="headerlink" title="IP 地址"></a>IP 地址</h4><ul>
+<li><p>IP 地址及其表示方法<br>互联网上的每台主机（或路由器）的<code>每个接口</code>分配一个在<code>全世界唯一的 IP 地址</code>。<br>由<code>互联网名字和数字分配机构</code> ICANN (Internet Corporation for Assigned Names and Numbers) 进行分配。<br>IP 地址采用 2 级结构<br><code>IP 地址 ::= &#123; &lt;网络号&gt;, &lt;主机号&gt;&#125;</code><br>IP地址在整个互联网范围内是<code>唯一</code>的。<br>IP 地址指明了连接到某个网络上的一个主机</p>
+</li>
+<li><p>分类的 IP 地址</p>
+</li>
+</ul>
+<p><img src="/image/jiwang/4_2_2.png" alt="IP"></p>
+<p><img src="/image/jiwang/4_2_3.png" alt="非特殊IP"></p>
+<p>分类的 IP 地址的优点和缺点:</p>
+<blockquote>
+<p>管理简单；使用方便；转发分组迅速；划分子网，灵活地使用。<br>设计上不合理：大地址块，浪费地址资源；即使采用划分子网的方法，也无法解决 IP 地址枯竭的问题。</p>
+</blockquote>
+<ul>
+<li>无分类编址CIDR</li>
+</ul>
+<p><code>CIDR (Classless Inter-Domain Routing) ：无分类域间路由选择。</code><br>消除了传统的 A 类、B 类和 C 类地址以及划分子网的概念，可以更加有效地分配 IPv4 的地址空间，<code>但无法解决 IP 地址枯竭的问题</code>。</p>
+<p>1)网络前缀<br><code>IP 地址 ::= &#123; &lt;网络前缀&gt;, &lt;主机号&gt;&#125;</code><br>2)地址块<br>CIDR 把网络前缀都相同的所有连续的 IP 地址组成一个 CIDR 地址块。<br>一个 CIDR 地址块包含的 IP 地址数目，取决于网络前缀的位数。<br>3)地址掩码 (address mask)<br><img src="/image/jiwang/4_2_4.png" alt="mask"><br><code>构造超网</code>:每一个 CIDR 地址块中的地址数<code>一定是 2 的整数次幂</code>。除最后几行外，CIDR 地址块都包含了多个 C 类地址（是一个 C 类地址的 2n 倍，n 是整数）。<br><code>路由聚合 (route aggregation)</code>前缀聚合</p>
+<ul>
+<li>IP 地址的特点</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">特点</th>
+<th style="text-align:center">解析</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">每个 IP 地址都由网络前缀和主机号两部分组成</td>
+<td style="text-align:center">IP 地址是一种<code>分等级</code>的地址结构。方便了 IP 地址的分配和管理。实现路由聚合，减小了转发表所占的存储空间，以及查找转发表的时间。</td>
+</tr>
+<tr>
+<td style="text-align:center">IP 地址是标志一台主机（或路由器）和一条链路的接口。</td>
+<td style="text-align:center">当一台<code>主机</code>同时连接到<code>两个网络上</code>时，该主机就必须同时具有<code>两个</code>相应的 <code>IP 地址</code>，其<code>网络号</code>必须是<code>不同</code>的。这种主机称为<code>多归属主机</code> (multihomed host)。一个<code>路由器</code>至少应当连接到两个网络，因此一个路由器至少应当有<code>两个不同</code>的 IP 地址。</td>
+</tr>
+<tr>
+<td style="text-align:center">转发器或交换机连接起来的若干个局域网仍为一个网络</td>
+<td style="text-align:center">按照互联网的观点，<code>一个网络（或子网）是指具有相同网络前缀的主机的集合</code>。转发器或交换机连接起来的若干个局域网都具有同样的网络号，它们仍为一个网络。<code>具有不同网络号的局域网必须使用路由器进行互连。</code></td>
+</tr>
+<tr>
+<td style="text-align:center">在 IP 地址中，所有分配到网络前缀的网络都是平等的。</td>
+<td style="text-align:center">互联网<code>同等对待</code>每一个 IP 地址，不管是范围很小的局域网，还是可能覆盖很大地理范围的广域网</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="IP-地址与-MAC-地址"><a href="#IP-地址与-MAC-地址" class="headerlink" title="IP 地址与 MAC 地址"></a>IP 地址与 MAC 地址</h4><h4 id="地址解析协议-ARP"><a href="#地址解析协议-ARP" class="headerlink" title="地址解析协议 ARP"></a>地址解析协议 ARP</h4><h4 id="IP-数据报的格式"><a href="#IP-数据报的格式" class="headerlink" title="IP 数据报的格式"></a>IP 数据报的格式</h4><h3 id="IP层转发分组的过程"><a href="#IP层转发分组的过程" class="headerlink" title="IP层转发分组的过程"></a>IP层转发分组的过程</h3><h3 id="网际控制报文协议ICMP"><a href="#网际控制报文协议ICMP" class="headerlink" title="网际控制报文协议ICMP"></a>网际控制报文协议ICMP</h3><h3 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h3><h3 id="互联网的路由选择"><a href="#互联网的路由选择" class="headerlink" title="互联网的路由选择"></a>互联网的路由选择</h3><h3 id="IP多播"><a href="#IP多播" class="headerlink" title="IP多播"></a>IP多播</h3><h3 id="虚拟专用网VPN和网络地址转换NAT"><a href="#虚拟专用网VPN和网络地址转换NAT" class="headerlink" title="虚拟专用网VPN和网络地址转换NAT"></a>虚拟专用网VPN和网络地址转换NAT</h3><h3 id="多协议标记交换MPLS"><a href="#多协议标记交换MPLS" class="headerlink" title="多协议标记交换MPLS"></a>多协议标记交换MPLS</h3><h3 id="软件定义网络SDN简介"><a href="#软件定义网络SDN简介" class="headerlink" title="软件定义网络SDN简介"></a>软件定义网络SDN简介</h3>]]></content>
       <categories>
         <category>计算机基础</category>
       </categories>
@@ -803,7 +919,9 @@
     <content><![CDATA[<p><a href="https://codeforces.com/contest/1467">TP</a></p>
 <h1 id="A-Wizard-of-Orz"><a href="#A-Wizard-of-Orz" class="headerlink" title="A. Wizard of Orz"></a>A. Wizard of Orz</h1><p>枚举一下前几种情况的最大得到的数<br>在第一位停止时:9012345….<br>在第二位停止时:9890123….<br>在第三位停止时:9878901….<br>…..</p>
 <p>通过观察可以发现,第一位最大是9,当位数大于等于两位时,在第二位数字停止并且将第一位取到1即可</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> x first</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> y second</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int long long </span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt;PII;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cin&gt;&gt;n;</span><br><span class="line">	string ans;</span><br><span class="line">	<span class="keyword">if</span>(n==<span class="number">1</span>)cout&lt;&lt;<span class="number">9</span>&lt;&lt;endl;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(n==<span class="number">2</span>)cout&lt;&lt;<span class="number">98</span>&lt;&lt;endl;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		string ans=<span class="string">&quot;98&quot;</span>;</span><br><span class="line">		<span class="type">char</span> a=<span class="string">&#x27;9&#x27;</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n<span class="number">-2</span>;i++)&#123;</span><br><span class="line">			ans+=a;</span><br><span class="line">			a++;</span><br><span class="line">			<span class="keyword">if</span>(a&gt;<span class="string">&#x27;9&#x27;</span>)a=<span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">	<span class="type">int</span> T=<span class="number">1</span>;</span><br><span class="line">	cin&gt;&gt;T;</span><br><span class="line">	<span class="keyword">while</span>(T--)</span><br><span class="line">		<span class="built_in">solve</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></h2><h1 id="B-Hills-And-Valleys"><a href="#B-Hills-And-Valleys" class="headerlink" title="B. Hills And Valleys"></a>B. Hills And Valleys</h1><p>根据题意,先统计出山峰和山谷的总和,接下来对$a<em>{i\in[2,n-1]}$的取值进行枚举,$a_i$有两种,取$a</em>{i-1}$和${a_{i+1}}$,对于这枚举的位置$i$,影响的有$i_1,i,i_2$，因此，现在总和种先减去这三个位置的价值，在加上改变后的价值.对所有情况取Min即可</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> x first</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> y second</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int long long </span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt;PII;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cin&gt;&gt;n;</span><br><span class="line">	string ans;</span><br><span class="line">	<span class="keyword">if</span>(n==<span class="number">1</span>)cout&lt;&lt;<span class="number">9</span>&lt;&lt;endl;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(n==<span class="number">2</span>)cout&lt;&lt;<span class="number">98</span>&lt;&lt;endl;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		string ans=<span class="string">&quot;98&quot;</span>;</span><br><span class="line">		<span class="type">char</span> a=<span class="string">&#x27;9&#x27;</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n<span class="number">-2</span>;i++)&#123;</span><br><span class="line">			ans+=a;</span><br><span class="line">			a++;</span><br><span class="line">			<span class="keyword">if</span>(a&gt;<span class="string">&#x27;9&#x27;</span>)a=<span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">	<span class="type">int</span> T=<span class="number">1</span>;</span><br><span class="line">	cin&gt;&gt;T;</span><br><span class="line">	<span class="keyword">while</span>(T--)</span><br><span class="line">		<span class="built_in">solve</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="B-Hills-And-Valleys"><a href="#B-Hills-And-Valleys" class="headerlink" title="B. Hills And Valleys"></a>B. Hills And Valleys</h1><p>根据题意,先统计出山峰和山谷的总和,接下来对$a<em>{i\in[2,n-1]}$的取值进行枚举,$a_i$有两种,取$a</em>{i-1}$和${a_{i+1}}$,对于这枚举的位置$i$,影响的有$i_1,i,i_2$，因此，现在总和种先减去这三个位置的价值，在加上改变后的价值.对所有情况取Min即可</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> x first</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> y second</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int long long </span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt;PII;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="type">int</span> a[<span class="number">300005</span>],f[<span class="number">300005</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cin&gt;&gt;n;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)cin&gt;&gt;a[i],f[i]=<span class="number">0</span>;</span><br><span class="line">	a[<span class="number">0</span>]=a[<span class="number">1</span>];</span><br><span class="line">	a[n+<span class="number">1</span>]=a[n];</span><br><span class="line">	<span class="type">int</span> c=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">2</span>;i&lt;n;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(a[i]&gt;a[i<span class="number">-1</span>]&amp;&amp;a[i]&gt;a[i+<span class="number">1</span>])c++,f[i]=<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(a[i]&lt;a[i<span class="number">-1</span>]&amp;&amp;a[i]&lt;a[i+<span class="number">1</span>])c++,f[i]=<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="type">int</span> ans=c;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">2</span>;i&lt;n;i++)&#123;</span><br><span class="line">		<span class="type">int</span> t=a[i<span class="number">-1</span>];</span><br><span class="line">		<span class="type">int</span> p=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">if</span>(a[i+<span class="number">1</span>]&gt;t&amp;&amp;a[i+<span class="number">1</span>]&gt;a[i+<span class="number">2</span>])p++;</span><br><span class="line">		<span class="keyword">if</span>(a[i+<span class="number">1</span>]&lt;t&amp;&amp;a[i+<span class="number">1</span>]&lt;a[i+<span class="number">2</span>])p++;</span><br><span class="line">		<span class="keyword">if</span>(a[i<span class="number">-1</span>]&gt;t&amp;&amp;a[i<span class="number">-1</span>]&gt;a[i<span class="number">-2</span>])p++;</span><br><span class="line">		<span class="keyword">if</span>(a[i<span class="number">-1</span>]&lt;t&amp;&amp;a[i<span class="number">-1</span>]&lt;a[i<span class="number">-2</span>])p++;</span><br><span class="line">		ans=<span class="built_in">min</span>(ans,c-f[i<span class="number">-1</span>]-f[i]+p-f[i+<span class="number">1</span>]);</span><br><span class="line">		t=a[i+<span class="number">1</span>];</span><br><span class="line">		p=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">if</span>(a[i+<span class="number">1</span>]&gt;t&amp;&amp;a[i+<span class="number">1</span>]&gt;a[i+<span class="number">2</span>])p++;</span><br><span class="line">		<span class="keyword">if</span>(a[i+<span class="number">1</span>]&lt;t&amp;&amp;a[i+<span class="number">1</span>]&lt;a[i+<span class="number">2</span>])p++;</span><br><span class="line">		<span class="keyword">if</span>(a[i<span class="number">-1</span>]&gt;t&amp;&amp;a[i<span class="number">-1</span>]&gt;a[i<span class="number">-2</span>])p++;</span><br><span class="line">		<span class="keyword">if</span>(a[i<span class="number">-1</span>]&lt;t&amp;&amp;a[i<span class="number">-1</span>]&lt;a[i<span class="number">-2</span>])p++;</span><br><span class="line">		ans=<span class="built_in">min</span>(ans,c-f[i+<span class="number">1</span>]-f[i]+p-f[i<span class="number">-1</span>]);</span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;ans&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line">	<span class="type">int</span> T=<span class="number">1</span>;</span><br><span class="line">	cin&gt;&gt;T;</span><br><span class="line">	<span class="keyword">while</span>(T--)</span><br><span class="line">		<span class="built_in">solve</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
 <h1 id="C-Three-Bags"><a href="#C-Three-Bags" class="headerlink" title="C. Three Bags"></a>C. Three Bags</h1><p>存在两种情况:<br>1.两组的价值总和减去剩下单组价值总和<br>2.总价值总和分别减去任意两组的最小值的两倍</p>
