@@ -905,7 +905,44 @@
 </tbody>
 </table>
 </div>
-<h4 id="IP-地址与-MAC-地址"><a href="#IP-地址与-MAC-地址" class="headerlink" title="IP 地址与 MAC 地址"></a>IP 地址与 MAC 地址</h4><h4 id="地址解析协议-ARP"><a href="#地址解析协议-ARP" class="headerlink" title="地址解析协议 ARP"></a>地址解析协议 ARP</h4><h4 id="IP-数据报的格式"><a href="#IP-数据报的格式" class="headerlink" title="IP 数据报的格式"></a>IP 数据报的格式</h4><h3 id="IP层转发分组的过程"><a href="#IP层转发分组的过程" class="headerlink" title="IP层转发分组的过程"></a>IP层转发分组的过程</h3><h3 id="网际控制报文协议ICMP"><a href="#网际控制报文协议ICMP" class="headerlink" title="网际控制报文协议ICMP"></a>网际控制报文协议ICMP</h3><h3 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h3><h3 id="互联网的路由选择"><a href="#互联网的路由选择" class="headerlink" title="互联网的路由选择"></a>互联网的路由选择</h3><h3 id="IP多播"><a href="#IP多播" class="headerlink" title="IP多播"></a>IP多播</h3><h3 id="虚拟专用网VPN和网络地址转换NAT"><a href="#虚拟专用网VPN和网络地址转换NAT" class="headerlink" title="虚拟专用网VPN和网络地址转换NAT"></a>虚拟专用网VPN和网络地址转换NAT</h3><h3 id="多协议标记交换MPLS"><a href="#多协议标记交换MPLS" class="headerlink" title="多协议标记交换MPLS"></a>多协议标记交换MPLS</h3><h3 id="软件定义网络SDN简介"><a href="#软件定义网络SDN简介" class="headerlink" title="软件定义网络SDN简介"></a>软件定义网络SDN简介</h3>]]></content>
+<h4 id="IP-地址与-MAC-地址"><a href="#IP-地址与-MAC-地址" class="headerlink" title="IP 地址与 MAC 地址"></a>IP 地址与 MAC 地址</h4><p>IP地址:虚拟地址、软件地址、逻辑地址。网络层和以上各层使用。放在 IP 数据报的首部。<br>MAC地址:固化在网卡上的 ROM 中。硬件地址、物理地址。数据链路层使用。放在 MAC 帧的首部。</p>
+<h4 id="地址解析协议-ARP"><a href="#地址解析协议-ARP" class="headerlink" title="地址解析协议 ARP"></a>地址解析协议 ARP</h4><p>实现 IP 通信时使用了两个地址：<br>IP 地址（网络层地址）<br>MAC 地址（数据链路层地址）</p>
+<ul>
+<li>ARP 高速缓存 (ARP cache)</li>
+</ul>
+<p>存放 IP 地址到 MAC 地址的映射表。<br>映射表动态更新（新增或超时删除）。</p>
+<ul>
+<li>ARP 工作</li>
+</ul>
+<p>更新并寻找地址</p>
+<ul>
+<li>ARP 查找 IP 地址对应的 MAC地址</li>
+</ul>
+<p><code>本局域网上广播发送 ARP 请求</code>（路由器不转发 ARP 请求）。<br><code>ARP 请求分组</code>：包含发送方硬件地址 / 发送方 IP 地址 / 目标方硬件地址(未知时填 0) / 目标方 IP 地址。<br><code>单播 ARP 响应分组</code>：包含发送方硬件地址 / 发送方 IP地址 / 目标方硬件地址 / 目标方 IP 地址。<br><code>ARP 分组封装在以太网帧中传输。</code></p>
+<p>使用ARP的四种典型情况</p>
+<blockquote>
+<p>1)发送方是<code>主机</code>，要把 IP 数据报发送到<code>本网络上的另一个主机</code>。这时用 ARP 找到目的主机的硬件地址。<br>2)发送方是<code>主机</code>，要把 IP 数据报发送到<code>另一个网络上的一个主机</code>。这时用 ARP 找到本网络上的一个路由器的硬件地址。剩下的工作由这个路由器来完成。<br>3)发送方是<code>路由器</code>，要把 IP 数据报转发到<code>本网络上的一个主机</code>。这时用 ARP 找到目的主机的硬件地址。<br>4)发送方是<code>路由器</code>，要把 IP 数据报转发到<code>另一个网络上的一个主机</code>。这时用 ARP 找到本网络上另一个路由器的硬件地址。剩下的工作由这个路由器来完成。 </p>
+</blockquote>
+<h4 id="IP-数据报的格式"><a href="#IP-数据报的格式" class="headerlink" title="IP 数据报的格式"></a>IP 数据报的格式</h4><p><img src="/image/jiwang/4_2_5.png" alt="IP数据报格式"></p>
+<p><code>版本</code><br>版本——占 4 位，指 IP 协议的版本。<br>目前的 IP 协议版本号为 4 (即 IPv4)。</p>
+<p><code>首部长度</code><br>首部长度——占 4 位，可表示的最大数值<br>是 15 个单位(一个单位为 4 字节)，<br>因此 IP 的首部长度的最大值是 60 字节。</p>
+<p><code>区分服务</code><br>区分服务——占 8 位，用来获得更好的服务。<br>只有在使用区分服务（DiffServ）时，这个字段才起作用。<br>在一般的情况下都不使用这个字段 </p>
+<p><code>总   长   度</code><br>总长度——占 16 位，指首部和数据之和的长度，<br>单位为字节，因此数据报的最大长度为 65535 字节。<br>总长度必须不超过最大传送单元 MTU。 </p>
+<p><code>标识</code><br>标识 (identification) ——占 16 位，<br>它是一个计数器，用来产生 IP 数据报的标识。 </p>
+<p><code>标志</code><br>标志(flag) ——占 3 位，目前只有前两位有意义。<br>标志字段的最低位是 MF (More Fragment)。<br>      MF=1 表示后面还有分片，MF=0 表示最后一个分片。<br>标志字段中间的一位是 DF (Don’t Fragment) 。<br>     只有当 DF=0 时才允许分片。  </p>
+<p><code>片   偏   移</code><br>片偏移——占 13 位，指出：较长的分组在分片后<br>某片在原分组中的相对位置。<br>片偏移以 8 个字节为偏移单位。</p>
+<p><code>生存时间</code><br>生存时间——占 8 位，记为 TTL (Time To Live)，<br>指示数据报在网络中可通过的路由器数的最大值。<br>初始值由源主机设置（通常为32、64、128或255），每经过一个路由器就减1。不同的操作系统初始值不同。</p>
+<p><code>协议</code><br>协议——占 8 位，指出此数据报携带的数据使用何种协议，<br>以便目的主机的 IP 层将数据部分上交给那个处理过程</p>
+<ul>
+<li>IP 数据报首部的固定部分中的各字段</li>
+</ul>
+<p><code>首部检验和</code><br>首部检验和——占 16 位，只检验数据报的首部，<br>不检验数据部分。这里不采用 CRC 检验码而采用简单的计算方法。</p>
+<p><code>源地址和目的地址</code><br>源地址和目的地址都各占 32 位。</p>
+<ul>
+<li>IP 数据报首部的可变部分</li>
+</ul>
+<p>长度可变：从<code>1 个字节到 40 个字节不等</code>，取决于所选择的项目。</p>
+<h3 id="IP层转发分组的过程"><a href="#IP层转发分组的过程" class="headerlink" title="IP层转发分组的过程"></a>IP层转发分组的过程</h3><h3 id="网际控制报文协议ICMP"><a href="#网际控制报文协议ICMP" class="headerlink" title="网际控制报文协议ICMP"></a>网际控制报文协议ICMP</h3><h3 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h3><h3 id="互联网的路由选择"><a href="#互联网的路由选择" class="headerlink" title="互联网的路由选择"></a>互联网的路由选择</h3><h3 id="IP多播"><a href="#IP多播" class="headerlink" title="IP多播"></a>IP多播</h3><h3 id="虚拟专用网VPN和网络地址转换NAT"><a href="#虚拟专用网VPN和网络地址转换NAT" class="headerlink" title="虚拟专用网VPN和网络地址转换NAT"></a>虚拟专用网VPN和网络地址转换NAT</h3><h3 id="多协议标记交换MPLS"><a href="#多协议标记交换MPLS" class="headerlink" title="多协议标记交换MPLS"></a>多协议标记交换MPLS</h3><h3 id="软件定义网络SDN简介"><a href="#软件定义网络SDN简介" class="headerlink" title="软件定义网络SDN简介"></a>软件定义网络SDN简介</h3>]]></content>
       <categories>
         <category>计算机基础</category>
       </categories>
