@@ -942,7 +942,33 @@
 <li>IP 数据报首部的可变部分</li>
 </ul>
 <p>长度可变：从<code>1 个字节到 40 个字节不等</code>，取决于所选择的项目。</p>
-<h3 id="IP层转发分组的过程"><a href="#IP层转发分组的过程" class="headerlink" title="IP层转发分组的过程"></a>IP层转发分组的过程</h3><h3 id="网际控制报文协议ICMP"><a href="#网际控制报文协议ICMP" class="headerlink" title="网际控制报文协议ICMP"></a>网际控制报文协议ICMP</h3><h3 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h3><h3 id="互联网的路由选择"><a href="#互联网的路由选择" class="headerlink" title="互联网的路由选择"></a>互联网的路由选择</h3><h3 id="IP多播"><a href="#IP多播" class="headerlink" title="IP多播"></a>IP多播</h3><h3 id="虚拟专用网VPN和网络地址转换NAT"><a href="#虚拟专用网VPN和网络地址转换NAT" class="headerlink" title="虚拟专用网VPN和网络地址转换NAT"></a>虚拟专用网VPN和网络地址转换NAT</h3><h3 id="多协议标记交换MPLS"><a href="#多协议标记交换MPLS" class="headerlink" title="多协议标记交换MPLS"></a>多协议标记交换MPLS</h3><h3 id="软件定义网络SDN简介"><a href="#软件定义网络SDN简介" class="headerlink" title="软件定义网络SDN简介"></a>软件定义网络SDN简介</h3>]]></content>
+<h3 id="IP层转发分组的过程"><a href="#IP层转发分组的过程" class="headerlink" title="IP层转发分组的过程"></a>IP层转发分组的过程</h3><h4 id="基于终点的转发"><a href="#基于终点的转发" class="headerlink" title="基于终点的转发"></a>基于终点的转发</h4><p>分组在互联网中是逐跳转发的。<br>基于终点的转发：基于分组首部中的目的地址传送和转发。</p>
+<p>转发表中最主要的路由是（目的网络地址，下一跳地址） ，</p>
+<h4 id="最长前缀匹配"><a href="#最长前缀匹配" class="headerlink" title="最长前缀匹配"></a>最长前缀匹配</h4><p>使用 CIDR 时，在查找转发表时可能会得到不止一个匹配结果。<br>最长前缀匹配 (longest-prefix matching) 原则：选择前缀最长的一个作为匹配的前缀。</p>
+<p>转发表中的 2 种特殊的路由</p>
+<blockquote>
+<p>主机路由 (host route)<br>又叫做特定主机路由。<br>是对特定目的主机的 IP 地址专门指明的一个路由。<br>网络前缀就是 a.b.c.d/32<br>放在转发表的最前面。<br>默认路由 (default route)<br>不管分组的最终目的网络在哪里，都由指定的路由器 R 来处理<br>用特殊前缀 0.0.0.0/0 表示。</p>
+</blockquote>
+<h4 id="使用二叉线索查找转发表"><a href="#使用二叉线索查找转发表" class="headerlink" title="使用二叉线索查找转发表"></a>使用二叉线索查找转发表</h4><p>划分子网——1. 从两级 IP 地址到三级 IP 地址 </p>
+<p>划分子网——划分子网的基本思路 </p>
+<pre><code>IP地址 ::= &#123;&lt;网络号&gt;, &lt;子网号&gt;, &lt;主机号&gt;&#125;        (4-2)
+</code></pre><p>划分子网——一个未划分子网的 B 类网络145.13.0.0</p>
+<p>划分子网——划分为三个子网后对外仍是一个网络</p>
+<p>划分子网——划分子网后变成了三级结构</p>
+<p>划分子网——二、子网掩码</p>
+<p>划分子网——1、子网掩码的概念</p>
+<blockquote>
+<p>子网掩码是一个应用于TCP/IP网络的32位二进制值，它可以屏蔽掉ip地址中的一部分，从而分离出ip地址中的网络部分与主机部分，基于子网掩码，管理员可以将网络进一步划分为若干子网。</p>
+</blockquote>
+<p>划分子网——2、默认子网掩码</p>
+<p>划分子网——3、子网掩码的重要属性</p>
+<p>划分子网——4、划分子网后的IP地址和子网掩码</p>
+<p>划分子网——5、如何找出网络地址</p>
+<p>划分子网——6、以宿舍网络为例，判断是否划分了子网</p>
+<p>划分子网——7、划分子网的案例</p>
+<p>划分子网——8、与划分子网有关的其他问题</p>
+<p>划分子网——9、子网划分方法</p>
+<h3 id="网际控制报文协议ICMP"><a href="#网际控制报文协议ICMP" class="headerlink" title="网际控制报文协议ICMP"></a>网际控制报文协议ICMP</h3><h3 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h3><h3 id="互联网的路由选择"><a href="#互联网的路由选择" class="headerlink" title="互联网的路由选择"></a>互联网的路由选择</h3><h3 id="IP多播"><a href="#IP多播" class="headerlink" title="IP多播"></a>IP多播</h3><h3 id="虚拟专用网VPN和网络地址转换NAT"><a href="#虚拟专用网VPN和网络地址转换NAT" class="headerlink" title="虚拟专用网VPN和网络地址转换NAT"></a>虚拟专用网VPN和网络地址转换NAT</h3><h3 id="多协议标记交换MPLS"><a href="#多协议标记交换MPLS" class="headerlink" title="多协议标记交换MPLS"></a>多协议标记交换MPLS</h3><h3 id="软件定义网络SDN简介"><a href="#软件定义网络SDN简介" class="headerlink" title="软件定义网络SDN简介"></a>软件定义网络SDN简介</h3>]]></content>
       <categories>
         <category>计算机基础</category>
       </categories>
