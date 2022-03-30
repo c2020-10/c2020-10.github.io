@@ -1008,7 +1008,35 @@
 <blockquote>
 <p>有固定长度子网和变长子网两种子网划分方法。<br>在采用固定长度子网时，所划分的所有子网的子网掩码都是相同的。<br>虽然根据已成为互联网标准协议的RFC 950文档，子网号不能为全1或全0，但随着无分类域间路由选择CIDR的广泛使用，现在全1和全0的子网号也可以使用了，但一定要谨慎使用，确认你的路由器所用的路由选择软件是否支持全0或全1的子网号这种较新的用法。<br>划分子网增加了灵活性，但却减少了能够连接在网络上的主机总数。</p>
 </blockquote>
-<h3 id="网际控制报文协议ICMP"><a href="#网际控制报文协议ICMP" class="headerlink" title="网际控制报文协议ICMP"></a>网际控制报文协议ICMP</h3><h3 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h3><h3 id="互联网的路由选择"><a href="#互联网的路由选择" class="headerlink" title="互联网的路由选择"></a>互联网的路由选择</h3><h3 id="IP多播"><a href="#IP多播" class="headerlink" title="IP多播"></a>IP多播</h3><h3 id="虚拟专用网VPN和网络地址转换NAT"><a href="#虚拟专用网VPN和网络地址转换NAT" class="headerlink" title="虚拟专用网VPN和网络地址转换NAT"></a>虚拟专用网VPN和网络地址转换NAT</h3><h3 id="多协议标记交换MPLS"><a href="#多协议标记交换MPLS" class="headerlink" title="多协议标记交换MPLS"></a>多协议标记交换MPLS</h3><h3 id="软件定义网络SDN简介"><a href="#软件定义网络SDN简介" class="headerlink" title="软件定义网络SDN简介"></a>软件定义网络SDN简介</h3>]]></content>
+<h3 id="网际控制报文协议ICMP"><a href="#网际控制报文协议ICMP" class="headerlink" title="网际控制报文协议ICMP"></a>网际控制报文协议ICMP</h3><blockquote>
+<p>ICMP (Internet Control Message Protocol) 允许主机或路由器报告差错情况和提供有关异常情况的报告。<br>ICMP 是互联网的标准协议。<br>但 ICMP 不是高层协议，而是 IP 层的协议。</p>
+</blockquote>
+<p><img src="/image/jiwang/4_4_0.png" alt="ICMP"></p>
+<h4 id="ICMP报文的种类"><a href="#ICMP报文的种类" class="headerlink" title="ICMP报文的种类"></a>ICMP报文的种类</h4><p>2 种：差错报告报文，询问报文。 </p>
+<p>ICMP 差错报告报文共有 4 种 </p>
+<blockquote>
+<p>终点不可达<br>包括网络不可达、主机不可达、协议不可达、端口不可达、需要分片但DF比特已经置1，以及源路由失败等六种情况，代码从0到5。<br>时间超过<br>当路由器收到生存时间为零的数据报时，除丢弃该数据报外，还要向源站发送该报文。<br>参数问题<br>当路由器或目的主机收到的数据报的首部中有的字段的值不正确时，就丢弃该报文，并向源站发送参数问题报文。<br>改变路由（重定向）<br>路由器将改变路由报文发送给主机，让主机知道下次应将数据报发给另外的路由器。<br>主机发送数据，先检查本机路由表，按照默认路由发送；若默认路由器发现有更好的路由，就用改变路由报文通知主机，主机增加一个表项，以后就按照这个路由发送同样的信息。</p>
+</blockquote>
+<p>ICMP 询问报文</p>
+<blockquote>
+<p>(1) 回送请求和回答<br>(2) 时间戳请求和回答：</p>
+</blockquote>
+<h4 id="ICMP的应用举例"><a href="#ICMP的应用举例" class="headerlink" title="ICMP的应用举例"></a>ICMP的应用举例</h4><p>PING (Packet InterNet Groper)<br>用来测试两个主机之间的连通性。<br>使用了 ICMP 回送请求与回送回答报文。<br>是应用层直接使用网络层 ICMP 的例子，没有通过运输层的 TCP 或 UDP。 </p>
+<p>Traceroute<br>这是UNIX操作系统中名字。在 Windows 操作系统中这个命令是 tracert。<br>用来跟踪一个分组从源点到终点的<code>路径</code>。<br>它利用 IP 数据报中的 <code>TTL 字段、ICMP 时间超过差错报告报文和ICMP 终点不可达差错报告报文</code>实现对从源点到终点的路径的跟踪。</p>
+<h3 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h3><p>IP 是互联网的核心协议。</p>
+<h4 id="IPv6的基本首部"><a href="#IPv6的基本首部" class="headerlink" title="IPv6的基本首部"></a>IPv6的基本首部</h4><p>IPv6 数据报的一般形式<br><code>基本首部</code> (base header)<br><code>有效载荷</code>(payload)。有效载荷也称为净负荷。有效载荷允许有零个或多个扩展首部 (extension header)，再后面是数据部分。</p>
+<p><img src="/image/jiwang/4_5_1.png" alt="IPv6"></p>
+<p>IPv6 的六种扩展首部</p>
+<blockquote>
+<p>逐跳选项<br>路由选择<br>分片<br>鉴别<br>封装安全有效载荷<br>目的站选项 </p>
+</blockquote>
+<h4 id="IPv6的地址"><a href="#IPv6的地址" class="headerlink" title="IPv6的地址"></a>IPv6的地址</h4><blockquote>
+<p>三种基本类型：<br>单播 (unicast)：传统的点对点通信。<br>多播 (multicast)：一点对多点的通信。<br>任播 (anycast)：IPv6 增加的一种类型。任播的终点是一组计算机，但数据报在交付时只交付其中的一个。通常是按照路由算法得出的距离最近的一个。 </p>
+</blockquote>
+<p>节点与接口<br>IPv6 将实现 IPv6 的主机和路由器均称为节点。<br>一个节点可能有多个与链路相连的接口。<br>IPv6 地址是分配给节点上接口的。<br>一个具有多个接口的节点可以有多个单播地址。<br>其中的任何一个地址都可以当作到达该节点的目的地址。</p>
+<h4 id="从IPv4向IPv6过渡"><a href="#从IPv4向IPv6过渡" class="headerlink" title="从IPv4向IPv6过渡"></a>从IPv4向IPv6过渡</h4><p>方法：<code>逐步演进，向后兼容</code>。<br><code>向后兼容</code>：IPv6 系统必须能够接收和转发 IPv4 分组，并且能够为 IPv4 分组选择路由。<br><code>两种过渡策略</code>：<br>使用双协议栈<br>使用隧道技术</p>
+<h4 id="ICMPv6"><a href="#ICMPv6" class="headerlink" title="ICMPv6"></a>ICMPv6</h4><p>IPv6 也需要使用 ICMP 来反馈一些差错信息。新的版本称为 ICMPv6。</p>
+<h3 id="互联网的路由选择"><a href="#互联网的路由选择" class="headerlink" title="互联网的路由选择"></a>互联网的路由选择</h3><h3 id="IP多播"><a href="#IP多播" class="headerlink" title="IP多播"></a>IP多播</h3><h3 id="虚拟专用网VPN和网络地址转换NAT"><a href="#虚拟专用网VPN和网络地址转换NAT" class="headerlink" title="虚拟专用网VPN和网络地址转换NAT"></a>虚拟专用网VPN和网络地址转换NAT</h3><h3 id="多协议标记交换MPLS"><a href="#多协议标记交换MPLS" class="headerlink" title="多协议标记交换MPLS"></a>多协议标记交换MPLS</h3><h3 id="软件定义网络SDN简介"><a href="#软件定义网络SDN简介" class="headerlink" title="软件定义网络SDN简介"></a>软件定义网络SDN简介</h3>]]></content>
       <categories>
         <category>计算机基础</category>
       </categories>
