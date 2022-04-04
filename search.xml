@@ -1078,7 +1078,23 @@
 <li>分层次的路由选择协议</li>
 </ul>
 <p>互联网：<br>采用自适应的（即动态的）、分布式路由选择协议。<br>把整个互联网划分为许多较小的自治系统 AS，采用分层次的路由选择协议。<br>分为 2 个层次：<br>自治系统之间的路由选择 或 <code>域间路由选择</code> (interdomain routing)；<br>自治系统内部的路由选择 或 <code>域内路由选择</code> (intradomain routing)；</p>
-<p>2大类路由选择协议<br>|                                  内部网关协议 IGP                                   |                                       外部网关协议 EGP                                       |<br>| :————————————————————————————————————————-: | :—————————————————————————————————————————————: |<br>| Interior Gateway Protocol   在一个自治系统内部使用的路由选择协议    常用：RIP，OSPF | External Gateway Protocol    在不同自治系统之间进行路由选择时使用的协议      使用最多：BGP-4 |</p>
+<p>2大类路由选择协议</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">内部网关协议 IGP</th>
+<th style="text-align:center">外部网关协议 EGP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Interior Gateway Protocol   在一个自治系统内部使用的路由选择协议    常用：RIP，OSPF</td>
+<td style="text-align:center">External Gateway Protocol    在不同自治系统之间进行路由选择时使用的协议     使用最多：BGP-4</td>
+</tr>
+</tbody>
+</table>
+</div>
 <h4 id="内部网关协议-RIP"><a href="#内部网关协议-RIP" class="headerlink" title="内部网关协议 RIP"></a>内部网关协议 RIP</h4><ul>
 <li>RIP 协议的工作原理</li>
 </ul>
