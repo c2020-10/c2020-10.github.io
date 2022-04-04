@@ -115,13 +115,19 @@
   <entry>
     <title>Codeforces Round 641 (Div. 2)</title>
     <url>/2022/03/17/cf641-2/</url>
-    <content><![CDATA[<p>$gcd(lcm({a_i,a_j})|i&lt;j)$</p>
-<p>$gcd(lcm(a<em>1,a_2)…lcm(a_1,a_x)…lcm(a</em>{x-1},a_x))$</p>
+    <content><![CDATA[<p>$ gcd(lcm({a_i,a_j})|i&lt;j) $</p>
+<p>$ gcd(lcm(a<em>1,a_2)…lcm(a_1,a_x)…lcm(a</em>{x-1},a_x)) $</p>
 <p>$gcd_1=gcd(lcm(a_1,a_2),lcm(a_1,a_3)…lcm(a_1,a_x))$</p>
 <p>$gcd_1=lcm(a_1,gcd(a_2,a_3…a_x))$</p>
 <p>$…$</p>
 <p>$gcd((lcm({a_i,a_j})|i&lt;j)=gcd(gcd_1,gcd_2…gcd_x)$</p>
 ]]></content>
+      <categories>
+        <category>codeforces</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
   </entry>
   <entry>
     <title>Codeforces Round 695 (Div. 2)</title>
@@ -1013,6 +1019,7 @@
 </blockquote>
 <p><img src="/image/jiwang/4_4_0.png" alt="ICMP"></p>
 <h4 id="ICMP报文的种类"><a href="#ICMP报文的种类" class="headerlink" title="ICMP报文的种类"></a>ICMP报文的种类</h4><p>2 种：差错报告报文，询问报文。 </p>
+<p><img src="/image/jiwang/4_4_1.png" alt="ICMP"></p>
 <p>ICMP 差错报告报文共有 4 种 </p>
 <blockquote>
 <p>终点不可达<br>包括网络不可达、主机不可达、协议不可达、端口不可达、需要分片但DF比特已经置1，以及源路由失败等六种情况，代码从0到5。<br>时间超过<br>当路由器收到生存时间为零的数据报时，除丢弃该数据报外，还要向源站发送该报文。<br>参数问题<br>当路由器或目的主机收到的数据报的首部中有的字段的值不正确时，就丢弃该报文，并向源站发送参数问题报文。<br>改变路由（重定向）<br>路由器将改变路由报文发送给主机，让主机知道下次应将数据报发给另外的路由器。<br>主机发送数据，先检查本机路由表，按照默认路由发送；若默认路由器发现有更好的路由，就用改变路由报文通知主机，主机增加一个表项，以后就按照这个路由发送同样的信息。</p>
@@ -1036,12 +1043,128 @@
 <p>节点与接口<br>IPv6 将实现 IPv6 的主机和路由器均称为节点。<br>一个节点可能有多个与链路相连的接口。<br>IPv6 地址是分配给节点上接口的。<br>一个具有多个接口的节点可以有多个单播地址。<br>其中的任何一个地址都可以当作到达该节点的目的地址。</p>
 <h4 id="从IPv4向IPv6过渡"><a href="#从IPv4向IPv6过渡" class="headerlink" title="从IPv4向IPv6过渡"></a>从IPv4向IPv6过渡</h4><p>方法：<code>逐步演进，向后兼容</code>。<br><code>向后兼容</code>：IPv6 系统必须能够接收和转发 IPv4 分组，并且能够为 IPv4 分组选择路由。<br><code>两种过渡策略</code>：<br>使用双协议栈<br>使用隧道技术</p>
 <h4 id="ICMPv6"><a href="#ICMPv6" class="headerlink" title="ICMPv6"></a>ICMPv6</h4><p>IPv6 也需要使用 ICMP 来反馈一些差错信息。新的版本称为 ICMPv6。</p>
-<h3 id="互联网的路由选择"><a href="#互联网的路由选择" class="headerlink" title="互联网的路由选择"></a>互联网的路由选择</h3><h3 id="IP多播"><a href="#IP多播" class="headerlink" title="IP多播"></a>IP多播</h3><h3 id="虚拟专用网VPN和网络地址转换NAT"><a href="#虚拟专用网VPN和网络地址转换NAT" class="headerlink" title="虚拟专用网VPN和网络地址转换NAT"></a>虚拟专用网VPN和网络地址转换NAT</h3><h3 id="多协议标记交换MPLS"><a href="#多协议标记交换MPLS" class="headerlink" title="多协议标记交换MPLS"></a>多协议标记交换MPLS</h3><h3 id="软件定义网络SDN简介"><a href="#软件定义网络SDN简介" class="headerlink" title="软件定义网络SDN简介"></a>软件定义网络SDN简介</h3>]]></content>
+<h3 id="互联网的路由选择"><a href="#互联网的路由选择" class="headerlink" title="互联网的路由选择"></a>互联网的路由选择</h3><p>路由</p>
+<blockquote>
+<p>网关以及中间节点（路由器）根据收到的IP报文其目的地址选择一条合适的路径，并将报文转发到下一个路由器。在路径中的最后一跳路由器二层寻址将报文转发给目的主机。这个过程被称为路由转发。<br>中间节点选择路径所依赖的表项称为路由表。<br>路由条目包含明确的出接口以及下一跳，这两项信息指导IP报文转发到相应的下一跳设备上。</p>
+</blockquote>
+<p>路由信息介绍</p>
+<blockquote>
+<p>通过路由中包含的信息，路由设备可以转发IP报文到相应的路径。<br>目的地址、掩码用于识别IP报文目的地址，路由设备将IP报文匹配到相应的路由之后，根据路由的出接口、下一跳确认转发的路径。<br>只有出接口并不能够确认转发IP报文的下一跳设备，还需要明确的下一跳设备地址。<br>路由中包含以下信息：<br>目的网络：标识目的网段<br>掩码：与目的地址共同标识一个网段<br>出接口：数据包被路由后离开本路由器的接口<br>下一跳：路由器转发到达目的网段的数据包所使用的下一跳地址<br>这些信息标识了目的网段、明确了转发IP报文的路径。</p>
+</blockquote>
+<p>路由信息获取方式</p>
+<blockquote>
+<p>路由器依据路由表进行路由转发，为实现路由转发，路由器需要发现路由，以下为常见的路由获取方式。</p>
+</blockquote>
+<h4 id="有关路由选择协议的几个基本概念"><a href="#有关路由选择协议的几个基本概念" class="headerlink" title="有关路由选择协议的几个基本概念"></a>有关路由选择协议的几个基本概念</h4><ul>
+<li>理想的路由算法</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">静态路由选择策略</th>
+<th style="text-align:center">动态路由选择策略</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">非自适应路由选择；不能及时适应网络状态的变化；简单，开销较小。</td>
+<td style="text-align:center">自适应路由选择；能较好地适应网络状态的变化；实现较为复杂，开销较大。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>分层次的路由选择协议</li>
+</ul>
+<p>互联网：<br>采用自适应的（即动态的）、分布式路由选择协议。<br>把整个互联网划分为许多较小的自治系统 AS，采用分层次的路由选择协议。<br>分为 2 个层次：<br>自治系统之间的路由选择 或 <code>域间路由选择</code> (interdomain routing)；<br>自治系统内部的路由选择 或 <code>域内路由选择</code> (intradomain routing)；</p>
+<p>2大类路由选择协议<br>|                                  内部网关协议 IGP                                   |                                       外部网关协议 EGP                                       |<br>| :————————————————————————————————————————-: | :—————————————————————————————————————————————: |<br>| Interior Gateway Protocol   在一个自治系统内部使用的路由选择协议    常用：RIP，OSPF | External Gateway Protocol    在不同自治系统之间进行路由选择时使用的协议      使用最多：BGP-4 |</p>
+<h4 id="内部网关协议-RIP"><a href="#内部网关协议-RIP" class="headerlink" title="内部网关协议 RIP"></a>内部网关协议 RIP</h4><ul>
+<li>RIP 协议的工作原理</li>
+</ul>
+<p>路由信息协议 RIP (Routing Information Protocol) 是一种<code>分布式的、基于距离向量</code>的路由选择协议。<br>互联网的标准协议。<br>最大优点：<code>简单</code>。<br>要求网络中的每个路由器都要<code>维护</code>从它自己到其他每一个目的网络的<code>距离记录</code>。 </p>
+<p>RIP“距离”的定义</p>
+<blockquote>
+<p>路由器到<code>直接连接</code>的网络的距离 = 1。<br>路由器到<code>非直接连接</code>的网络的距离 = 所经过的路由器数 + 1。<br>RIP 协议中的“距离”也称为<code>“跳数”(hop count)</code>，每经过一个路由器，跳数就加 1。<br>好路由 = “距离短”的路由。<code>最佳路由 = “距离最短”</code>的路由。<br>一条路径<code>最多</code>只能包含 15 个路由器。<br>“距离”的<code>最大值为 16</code> 时即相当于<code>不可达</code>。<br>RIP <code>不能</code>在两个网络之间同时使用多条路由，<code>只选择</code>距离最短”的路由。</p>
+</blockquote>
+<ul>
+<li>距离向量算法</li>
+</ul>
+<p>算法基础：Bellman-Ford 算法（或 Ford-Fulkerson 算法）。</p>
+<p>RIP2 报文</p>
+<blockquote>
+<p>组成：首部和路由 2 个部分。<br>路由部分：由若干个路由信息组成。每个路由信息共 20 个字节。<br>地址族标识符（又称为地址类别）字段用来标志所使用的地址协议。<br>路由标记填入自治系统的号码。<br>后面为具体路由，指出某个网络地址、该网络的子网掩码、下一跳路由器地址以及到此网络的距离。<br>一个 RIP 报文最多可包括 25 个路由，因而 RIP 报文的最大长度是 4+20 x25=504 字节。如超过，必须再用一个 RIP 报文来传送。<br>RIP2 具有简单的鉴别功能。</p>
+</blockquote>
+<ul>
+<li>坏消息传播得慢</li>
+</ul>
+<p>RIP 协议特点：好消息传播得快，坏消息传播得慢。<br>问题：坏消息传播得慢（慢收敛）。</p>
+<p>RIP 协议的优缺点</p>
+<blockquote>
+<p>优点：<br>实现简单，开销较小。<br>缺点：<br>网络规模有限。最大距离为 15（16 表示不可达）。<br>交换的路由信息为完整路由表，开销较大。<br>坏消息传播得慢，收敛时间过长。</p>
+</blockquote>
+<h4 id="内部网关协议-OSPF"><a href="#内部网关协议-OSPF" class="headerlink" title="内部网关协议 OSPF"></a>内部网关协议 OSPF</h4><p>开放最短路径优先 OSPF (Open Shortest Path First)是为克服 RIP 的缺点在 1989 年开发出来的。<br><code>原理很简单，但实现很复杂。</code><br>使用了 Dijkstra 提出的最短路径算法 SPF。<br>采用<code>分布式的链路状态协议</code> (link state protocol)。<br>现在使用 OSPFv2。</p>
+<p>三个主要特点</p>
+<blockquote>
+<p>采用<code>洪泛法</code> (flooding)，向本自治系统中<code>所有路由器</code>发送信息。<br>发送的信息是与本路由器相邻的所有路由器的<code>链路状态</code>，但这只是路由器所知道的部分信息。<br><code>链路状态</code>：说明本路由器都和哪些路由器<code>相邻</code>，以及该链路的<code>度量</code> (metric)。<br>当链路状态发生变化或每隔一段时间（如30分钟），路由器才用洪泛法向所有路由器发送此信息。 </p>
+</blockquote>
+<p>链路状态数据库 (link-state database)</p>
+<blockquote>
+<p>每个路由器最终都能建立全网的拓扑结构图。<br>拓扑结构图在全网范围内是一致的（这称为链路状态数据库的同步）。<br>每个路由器使用链路状态数据库中的数据构造自己的路由表（例如，使用Dijkstra的最短路径路由算法）。</p>
+</blockquote>
+<p>其他特点</p>
+<blockquote>
+<p>对于不同类型的业务可计算出<code>不同的路由</code>。<br>可实现多路径间的<code>负载均衡</code>（load balancing）。<br>所有在 OSPF 路由器之间交换的分组都具有<code>鉴别</code>的功能。<br>支持<code>可变长度的子网划分和无分类编址</code> CIDR。<br><code>32 位的序号</code>，序号越大状态就越新。全部序号空间在 600 年内不会产生重复号。</p>
+</blockquote>
+<ul>
+<li>OSPF 的五种分组类型</li>
+</ul>
+<p>问候 (Hello) 分组。<br>数据库描述 (Database Description) 分组。<br>链路状态请求 (Link State Request) 分组。<br>链路状态更新 (Link State Update) 分组。<br>链路状态确认 (Link State Acknowledgment)分组。</p>
+<p>指定的路由器 DR<br>多点接入的局域网采用了<code>指定的路由器 DR</code> (designated router) 的方法，<code>使广播的信息量大大减少</code>。<br>指定的路由器<code>代表</code>该局域网上所有的链路向连接到该网络上的各路由器发送状态信息。 </p>
+<h4 id="外部网关协议-BGP"><a href="#外部网关协议-BGP" class="headerlink" title="外部网关协议 BGP"></a>外部网关协议 BGP</h4><p>BGP 是<code>不同自治系统</code>的路由器之间交换路由信息的协议。<br>BGP 较新版本是 2006 年 1 月发表的 BGP-4（BGP 第 4 个版本），即 RFC 4271 ~ 4278。<br>可以将 BGP-4 简写为 BGP。 </p>
+<ul>
+<li>协议 BGP 的主要特点</li>
+</ul>
+<p>用于自治系统 AS 之间的路由选择。<br>只能是力求选择出一条能够到达目的网络且<code>比较好的路由</code>（不能兜圈子），而<code>并非要计算出一条最佳路由</code>。<br>互联网的规模太大，使得自治系统AS之间路由选择非常困难。<br>自治系统AS之间的路由选择必须考虑有关策略。<br>采用了<code>路径向量</code> (path vector) 路由选择协议。</p>
+<p>BGP 路由信息</p>
+<blockquote>
+<p>BGP 路由 = [ 前缀, BGP属性 ] = [ 前缀, AS-PATH, NEXT-HOP ]<br><code>前缀</code>：指明到哪一个子网（用 CIDR 记法表示）。<br><code>BGP 属性</code>：最重要的两个属性是<br>自治系统路径 AS-PATH<br>下一跳 NEXT-HOP。</p>
+</blockquote>
+<ul>
+<li>三种不同的自治系统 AS</li>
+</ul>
+<p>末梢 AS：不会把来自其他 AS 的分组再转发到另一个 AS。必须向所连接的 AS 付费。<br>多归属 AS (multihomed AS)：同时连接到两个或两个以上的 AS。增加连接的可靠性。<br>穿越 AS：为其他 AS 有偿转发分组。<br>对等 AS：经过事先协商的两个 AS，彼此之间的发送或接收分组都不收费。</p>
+<ul>
+<li>BGP 的路由选择</li>
+</ul>
+<p>本地偏好 (local preference) 值最高的路由 （默认值=100）</p>
+<p>AS 跳数最小的路由</p>
+<p>使用热土豆路由选择算法（分组在 AS 内的转发次数最少）</p>
+<p>路由器 BGP ID 数值最小的路由。具有多个接口的路由器有多个 IP 地址，BGP ID 就使用该路由器的 IP 地址中数值最大的一个。</p>
+<ul>
+<li>BGP-4 的四种报文</li>
+</ul>
+<p>OPEN (打开) :用来与相邻的另一个 BGP 发言者建立关系，使通信初始化。</p>
+<p>UPDATE (更新) :用来通告某一路由的信息，以及列出要撤销的多条路由。</p>
+<p>KEEPALIVE (保活) :用来周期性地证实邻站的连通性。</p>
+<p>NOTIFICATION (通知) : 用来发送检测到的差错。</p>
+<h4 id="路由器的构成"><a href="#路由器的构成" class="headerlink" title="路由器的构成"></a>路由器的构成</h4><h3 id="IP多播"><a href="#IP多播" class="headerlink" title="IP多播"></a>IP多播</h3><h3 id="虚拟专用网VPN和网络地址转换NAT"><a href="#虚拟专用网VPN和网络地址转换NAT" class="headerlink" title="虚拟专用网VPN和网络地址转换NAT"></a>虚拟专用网VPN和网络地址转换NAT</h3><h3 id="多协议标记交换MPLS"><a href="#多协议标记交换MPLS" class="headerlink" title="多协议标记交换MPLS"></a>多协议标记交换MPLS</h3><h3 id="软件定义网络SDN简介"><a href="#软件定义网络SDN简介" class="headerlink" title="软件定义网络SDN简介"></a>软件定义网络SDN简介</h3>]]></content>
       <categories>
         <category>计算机基础</category>
       </categories>
       <tags>
         <tag>计算机知识</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Codeforces Round 780 (Div. 3)</title>
+    <url>/2022/04/01/cf780-3/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>codeforces</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
       </tags>
   </entry>
 </search>
