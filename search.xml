@@ -201,10 +201,10 @@
 <h4 id="code-1"><a href="#code-1" class="headerlink" title="code"></a>code</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int long long </span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> n,m;</span><br><span class="line"><span class="type">int</span> g[<span class="number">26</span>][<span class="number">26</span>];</span><br><span class="line"><span class="type">int</span> f[<span class="number">1</span>&lt;&lt;<span class="number">20</span>];</span><br><span class="line">string s;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">	cin&gt;&gt;s;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)g[s[i<span class="number">-1</span>]-<span class="string">&#x27;a&#x27;</span>][s[i]-<span class="string">&#x27;a&#x27;</span>]++,g[s[i]-<span class="string">&#x27;a&#x27;</span>][s[i<span class="number">-1</span>]-<span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">	<span class="built_in">memset</span>(f,<span class="number">0x3f</span>,<span class="keyword">sizeof</span> f);</span><br><span class="line">	f[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;<span class="number">1</span>&lt;&lt;m;i++)&#123;</span><br><span class="line">		<span class="type">int</span> sum=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;m;j++)</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> k=j+<span class="number">1</span>;k&lt;m;k++)</span><br><span class="line">				<span class="keyword">if</span>((i&gt;&gt;j&amp;<span class="number">1</span>)^(i&gt;&gt;k&amp;<span class="number">1</span>))</span><br><span class="line">					sum+=g[j][k];</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;m;j++)</span><br><span class="line">			<span class="keyword">if</span>(i&gt;&gt;j&amp;<span class="number">1</span>)</span><br><span class="line">				f[i]=<span class="built_in">min</span>(f[i-(<span class="number">1</span>&lt;&lt;j)]+sum,f[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;f[(<span class="number">1</span>&lt;&lt;m)<span class="number">-1</span>]&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">solve</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>算法入门</category>
+        <category>算法</category>
       </categories>
       <tags>
-        <tag>算法</tag>
+        <tag>动态规划</tag>
       </tags>
   </entry>
   <entry>
@@ -1220,6 +1220,50 @@
       </categories>
       <tags>
         <tag>对拍</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>约数问题</title>
+    <url>/2022/04/06/%E7%BA%A6%E6%95%B0%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h1 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h1><blockquote>
+<p>定义:对于一个正整数n，小于n且和n互质的正整数（包括1）的个数，记作φ(n) 。</p>
+</blockquote>
+<h2 id="欧拉函数通式："><a href="#欧拉函数通式：" class="headerlink" title="欧拉函数通式："></a>欧拉函数通式：</h2><p>$φ(n)=n\prod\limits_{i=1}^k(1-\frac{1}{p_i})$</p>
+<p>其中$p_1,p_2……p_k$为$n$的所有质因数,特别的$φ(1)=1$。</p>
+<p>所以根据通式可以直接求出一个数的欧拉值</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">ll <span class="title">euler</span><span class="params">(ll n)</span></span>&#123;</span><br><span class="line">    ll ans = n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>; i * i &lt;= n; i ++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!(n % i))&#123;</span><br><span class="line">            ans = ans / i * (i - <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">while</span>(!(n % i)) n /= i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(n &gt; <span class="number">1</span>) ans = ans / n * (n - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h2><ul>
+<li><p>$欧拉函数为奇性函数$。<br>$积性函数$：对于$f$,当$gcd(a,b)=1$,$f(ab)=f(a)<em>f(b)$<br>$完全积性函数$:特别的，对于任意的$a,b,即gcd(a,b)!=1，也有f(ab)=f(a)</em>f(b)$所以$φ(ab)=φ(a)φ(b)$</p>
+<p>当且仅当$gcd(a,b)=1$，即$a,b互质$,特别地，假如a,b不互质，则<br>$\normalsizeφ(ab)=\frac{φ(a)φ(b)gcd(a,b)}{φ(gcd(a,b))}$</p>
+<p>这个便为通式。<br>以上证明均略。</p>
+<ul>
+<li>衍生出的性质：<br> $ φ(2×b)=φ(b)$<br> 当且仅当b为奇数时。</li>
+</ul>
+</li>
+<li><p>对于一个质数$p,φ ( p ) = p − 1$<br>  无需证明，根据定义可以推出<br>  所以线性筛时求出eular函数</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1000010</span>;</span><br><span class="line"><span class="type">int</span> primes[N], cnt;</span><br><span class="line"><span class="type">int</span> euler[N];</span><br><span class="line"><span class="type">bool</span> st[N];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">get_eulers</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    euler[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">2</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(!st[i])</span><br><span class="line">        &#123;</span><br><span class="line">            primes[cnt++]=i;</span><br><span class="line">            euler[i]=i<span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;primes[j]&lt;=n/i;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> t=primes[j]*i;</span><br><span class="line">            st[t]=<span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span> (i % primes[j] == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                euler[t] = euler[i] * primes[j];</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            euler[t] = euler[i] * (primes[j] - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>对于一个质数$p$,$φ(p^k)=p^k-p^{k-1}=p^{k-1}<em>(p-1)=p^{k-1}</em>φ</p>
+</li>
+<li><p>$n=\sum_{d|n}φ(d)$</p>
+<p>经典应用</p>
+<p>$\sum\limits_{d|gcd(i,j)}φ(d)=gcd(i,j)$</p>
+</li>
+<li>当$n&gt;2$时，$φ ( n )$是偶数。</li>
+<li>对于一个正整数n nn，小于$n$且和$n$互质的正整数(包括1)的和，记作$sum_φ(n)$<script type="math/tex; mode=display">sum_φ(n)=
+\begin{cases}
+1& \text{x=1}\\
+\frac{φ(n)*n}{2}& \text{x>2}
+\end{cases}</script></li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>数学</tag>
       </tags>
   </entry>
 </search>
