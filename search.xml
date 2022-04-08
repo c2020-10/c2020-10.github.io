@@ -161,6 +161,47 @@
       </tags>
   </entry>
   <entry>
+    <title>Codeforces Round 780 (Div. 3)</title>
+    <url>/2022/04/01/cf780-3/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>codeforces</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>对拍的食用指南</title>
+    <url>/2022/04/05/%E5%AF%B9%E6%8B%8D/</url>
+    <content><![CDATA[<h1 id="何为对拍"><a href="#何为对拍" class="headerlink" title="何为对拍"></a>何为对拍</h1><p>​对拍，是一个比较实用的工具。它能够非常方便地对于两个程序的输出文件进行比较，可以帮助我们实现一些自动化的比较输出结果的问题。</p>
+<p>​众所周知，每一道编程题目，都会有某种正解能拿到满分；当我们想不出正解时，我们往往可以打暴力代码来获取部分分数。</p>
+<p>​但是，当我们觉得有思路写正解，但又担心自己正解写的不对，而恰好，我们又有一个能够暴力骗分的代码。这个时候就可以用到对拍。 暴力骗分代码必须保证正确性，最多只是超时，不能出现答案错误的情况。</p>
+<p>​这样，我们可以造多组数据，让暴力骗分的程序跑一遍，再让我们自己写的正解跑一遍，二者进行多次对比。如果多组数据都显示二者的输出结果一样，那么这个正解大概率没问题。相反地，如果两组数据不同，我们就找到了一组错误数据，方便调试，找到正解哪里出了问题。</p>
+<p>​这便是对拍。其作用也在上文提出。</p>
+<hr>
+<h1 id="如何实现对拍"><a href="#如何实现对拍" class="headerlink" title="如何实现对拍"></a>如何实现对拍</h1><p>首先看一下文件</p>
+<h2 id="Dir"><a href="#Dir" class="headerlink" title="Dir"></a>Dir</h2><p><img src="/image/duipai/1.png" alt="对拍"></p>
+<h3 id="FILE"><a href="#FILE" class="headerlink" title="FILE:"></a>FILE:</h3><p> cpp</p>
+<p><code>make.cpp</code>:生成数据<br><code>baoli.cpp</code>:暴力代码<br><code>std.cpp</code>:标准代码<br><code>main.cpp</code>:对拍代码</p>
+<p> txt<br><code>make.txt</code>:存放生成数据<br><code>baoli.txt</code>:存放暴力测出的数据<br><code>std.txt</code>:存放所写代码测出的数据</p>
+<p>对拍,简而言之，就是将暴力代码与自己所写的代码使用相同的数据测出来的结果进行比较.</p>
+<h3 id="code-example"><a href="#code-example" class="headerlink" title="code example"></a>code example</h3><p>接下来以A+B为例,观看一下代码</p>
+<p> make.cpp<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">srand</span>(<span class="built_in">time</span>(<span class="number">0</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d %d\n&quot;</span>, <span class="built_in">rand</span>(), <span class="built_in">rand</span>());</span><br><span class="line">    <span class="comment">//这样就生成了2个随机数</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>baoli.cpp</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">freopen</span>(<span class="string">&quot;in.in&quot;</span>, <span class="string">&quot;r&quot;</span>, stdin);      <span class="comment">//读入数据生成器造出来的数据</span></span><br><span class="line">    <span class="built_in">freopen</span>(<span class="string">&quot;baoli.txt&quot;</span>, <span class="string">&quot;w&quot;</span>, stdout); <span class="comment">//输出答案</span></span><br><span class="line">    <span class="type">int</span> a, b, ans = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;a, &amp;b);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= a; ++i)</span><br><span class="line">        ans++;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= b; ++i)</span><br><span class="line">        ans++;</span><br><span class="line">        </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, ans);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>std.cpp</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a,b;</span><br><span class="line">    <span class="built_in">freopen</span>(<span class="string">&quot;in.in&quot;</span>, <span class="string">&quot;r&quot;</span>, stdin);</span><br><span class="line">    <span class="built_in">freopen</span>(<span class="string">&quot;std.txt&quot;</span>, <span class="string">&quot;w&quot;</span>, stdout);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;a, &amp;b);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, a + b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p> make.cpp</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) <span class="comment">//一直循环，直到找到不一样的数据</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">system</span>(<span class="string">&quot;data.exe &gt; in.txt&quot;</span>);</span><br><span class="line">        <span class="built_in">system</span>(<span class="string">&quot;baoli.exe &lt; in.txt &gt; baoli.txt&quot;</span>);</span><br><span class="line">        <span class="built_in">system</span>(<span class="string">&quot;std.exe &lt; in.txt &gt; std.txt&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">system</span>(<span class="string">&quot;fc std.txt baoli.txt&quot;</span>)) <span class="comment">//当 fc 返回1时，说明这时数据不一样</span></span><br><span class="line">            <span class="keyword">break</span>;                          <span class="comment">//不一样就跳出循环</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>工具(Algorithm)</category>
+      </categories>
+      <tags>
+        <tag>对拍</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>动态规划</title>
     <url>/2022/02/08/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[<h2 id="树形DP"><a href="#树形DP" class="headerlink" title="树形DP"></a>树形DP</h2><h3 id="洛谷p1352"><a href="#洛谷p1352" class="headerlink" title="洛谷p1352"></a>洛谷p1352</h3><h4 id="简单版本"><a href="#简单版本" class="headerlink" title="简单版本"></a>简单版本</h4><blockquote>
@@ -208,17 +249,6 @@
       </tags>
   </entry>
   <entry>
-    <title>计算机组成原理</title>
-    <url>/2022/02/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>计算机基础</category>
-      </categories>
-      <tags>
-        <tag>计算机知识</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>操作系统概念精要</title>
     <url>/2022/02/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</url>
     <content><![CDATA[<h1 id="导论"><a href="#导论" class="headerlink" title="导论"></a>导论</h1><h2 id="操作系统的功能"><a href="#操作系统的功能" class="headerlink" title="操作系统的功能"></a>操作系统的功能</h2><blockquote>
@@ -239,6 +269,61 @@
       </categories>
       <tags>
         <tag>计算机知识</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机组成原理</title>
+    <url>/2022/02/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>计算机基础</category>
+      </categories>
+      <tags>
+        <tag>计算机知识</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数论</title>
+    <url>/2022/04/06/%E6%95%B0%E8%AE%BA/</url>
+    <content><![CDATA[<h1 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h1><blockquote>
+<p>定义:对于一个正整数n，小于n且和n互质的正整数（包括1）的个数，记作φ(n) 。</p>
+</blockquote>
+<h2 id="欧拉函数通式："><a href="#欧拉函数通式：" class="headerlink" title="欧拉函数通式："></a>欧拉函数通式：</h2><p>$φ(n)=n\prod\limits_{i=1}^k(1-\frac{1}{p_i})$</p>
+<p>其中$p_1,p_2……p_k$为$n$的所有质因数,特别的$φ(1)=1$。</p>
+<p>所以根据通式可以直接求出一个数的欧拉值</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">ll <span class="title">euler</span><span class="params">(ll n)</span></span>&#123;</span><br><span class="line">    ll ans = n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>; i * i &lt;= n; i ++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!(n % i))&#123;</span><br><span class="line">            ans = ans / i * (i - <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">while</span>(!(n % i)) n /= i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(n &gt; <span class="number">1</span>) ans = ans / n * (n - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h2><ul>
+<li><p>$欧拉函数为奇性函数$。<br>$积性函数$：对于$f$,当$gcd(a,b)=1$,$f(ab)=f(a)<em>f(b)$<br>$完全积性函数$:特别的，对于任意的$a,b,即gcd(a,b)!=1，也有f(ab)=f(a)</em>f(b)$所以 $ φ(ab)=φ(a)φ(b)$</p>
+<p>当且仅当$gcd(a,b)=1$，即$a,b互质$,特别地，假如a,b不互质，则<br>$\normalsizeφ(ab)=\frac{φ(a)φ(b)gcd(a,b)}{φ(gcd(a,b))}$</p>
+<p>这个便为通式。<br>以上证明均略。</p>
+<ul>
+<li>衍生出的性质：<br> $ φ(2×b)=φ(b)$<br> 当且仅当b为奇数时。</li>
+</ul>
+</li>
+<li><p>对于一个质数$p,φ ( p ) = p − 1$<br>  无需证明，根据定义可以推出<br>  所以线性筛时求出eular函数</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1000010</span>;</span><br><span class="line"><span class="type">int</span> primes[N], cnt;</span><br><span class="line"><span class="type">int</span> euler[N];</span><br><span class="line"><span class="type">bool</span> st[N];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">get_eulers</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    euler[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">2</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(!st[i])</span><br><span class="line">        &#123;</span><br><span class="line">            primes[cnt++]=i;</span><br><span class="line">            euler[i]=i<span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;primes[j]&lt;=n/i;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> t=primes[j]*i;</span><br><span class="line">            st[t]=<span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span> (i % primes[j] == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                euler[t] = euler[i] * primes[j];</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            euler[t] = euler[i] * (primes[j] - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>对于一个质数$p$,$φ(p^k)=p^k-p^{k-1}=p^{k-1}<em>(p-1)=p^{k-1}</em>φ$</p>
+</li>
+<li><p>$n=\sum_{d|n}φ(d)$</p>
+<p>经典应用</p>
+<p>$\sum\limits_{d|gcd(i,j)}φ(d)=gcd(i,j)$</p>
+</li>
+<li>当$n&gt;2$时，$φ ( n )$是偶数。</li>
+<li>对于一个正整数n nn，小于$n$且和$n$互质的正整数(包括1)的和，记作$sum_φ(n)$<script type="math/tex; mode=display">sum_φ(n)=
+\begin{cases}
+1& \text{x=1}\\
+\frac{φ(n)*n}{2}& \text{x>2}
+\end{cases}</script></li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>数学</tag>
       </tags>
   </entry>
   <entry>
@@ -1179,91 +1264,6 @@
       </categories>
       <tags>
         <tag>计算机知识</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Codeforces Round 780 (Div. 3)</title>
-    <url>/2022/04/01/cf780-3/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>codeforces</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>对拍的食用指南</title>
-    <url>/2022/04/05/%E5%AF%B9%E6%8B%8D/</url>
-    <content><![CDATA[<h1 id="何为对拍"><a href="#何为对拍" class="headerlink" title="何为对拍"></a>何为对拍</h1><p>​对拍，是一个比较实用的工具。它能够非常方便地对于两个程序的输出文件进行比较，可以帮助我们实现一些自动化的比较输出结果的问题。</p>
-<p>​众所周知，每一道编程题目，都会有某种正解能拿到满分；当我们想不出正解时，我们往往可以打暴力代码来获取部分分数。</p>
-<p>​但是，当我们觉得有思路写正解，但又担心自己正解写的不对，而恰好，我们又有一个能够暴力骗分的代码。这个时候就可以用到对拍。 暴力骗分代码必须保证正确性，最多只是超时，不能出现答案错误的情况。</p>
-<p>​这样，我们可以造多组数据，让暴力骗分的程序跑一遍，再让我们自己写的正解跑一遍，二者进行多次对比。如果多组数据都显示二者的输出结果一样，那么这个正解大概率没问题。相反地，如果两组数据不同，我们就找到了一组错误数据，方便调试，找到正解哪里出了问题。</p>
-<p>​这便是对拍。其作用也在上文提出。</p>
-<hr>
-<h1 id="如何实现对拍"><a href="#如何实现对拍" class="headerlink" title="如何实现对拍"></a>如何实现对拍</h1><p>首先看一下文件</p>
-<h2 id="Dir"><a href="#Dir" class="headerlink" title="Dir"></a>Dir</h2><p><img src="/image/duipai/1.png" alt="对拍"></p>
-<h3 id="FILE"><a href="#FILE" class="headerlink" title="FILE:"></a>FILE:</h3><p> cpp</p>
-<p><code>make.cpp</code>:生成数据<br><code>baoli.cpp</code>:暴力代码<br><code>std.cpp</code>:标准代码<br><code>main.cpp</code>:对拍代码</p>
-<p> txt<br><code>make.txt</code>:存放生成数据<br><code>baoli.txt</code>:存放暴力测出的数据<br><code>std.txt</code>:存放所写代码测出的数据</p>
-<p>对拍,简而言之，就是将暴力代码与自己所写的代码使用相同的数据测出来的结果进行比较.</p>
-<h3 id="code-example"><a href="#code-example" class="headerlink" title="code example"></a>code example</h3><p>接下来以A+B为例,观看一下代码</p>
-<p> make.cpp<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">srand</span>(<span class="built_in">time</span>(<span class="number">0</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d %d\n&quot;</span>, <span class="built_in">rand</span>(), <span class="built_in">rand</span>());</span><br><span class="line">    <span class="comment">//这样就生成了2个随机数</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>baoli.cpp</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">freopen</span>(<span class="string">&quot;in.in&quot;</span>, <span class="string">&quot;r&quot;</span>, stdin);      <span class="comment">//读入数据生成器造出来的数据</span></span><br><span class="line">    <span class="built_in">freopen</span>(<span class="string">&quot;baoli.txt&quot;</span>, <span class="string">&quot;w&quot;</span>, stdout); <span class="comment">//输出答案</span></span><br><span class="line">    <span class="type">int</span> a, b, ans = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;a, &amp;b);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= a; ++i)</span><br><span class="line">        ans++;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= b; ++i)</span><br><span class="line">        ans++;</span><br><span class="line">        </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, ans);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>std.cpp</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a,b;</span><br><span class="line">    <span class="built_in">freopen</span>(<span class="string">&quot;in.in&quot;</span>, <span class="string">&quot;r&quot;</span>, stdin);</span><br><span class="line">    <span class="built_in">freopen</span>(<span class="string">&quot;std.txt&quot;</span>, <span class="string">&quot;w&quot;</span>, stdout);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;a, &amp;b);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, a + b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p> make.cpp</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) <span class="comment">//一直循环，直到找到不一样的数据</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">system</span>(<span class="string">&quot;data.exe &gt; in.txt&quot;</span>);</span><br><span class="line">        <span class="built_in">system</span>(<span class="string">&quot;baoli.exe &lt; in.txt &gt; baoli.txt&quot;</span>);</span><br><span class="line">        <span class="built_in">system</span>(<span class="string">&quot;std.exe &lt; in.txt &gt; std.txt&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">system</span>(<span class="string">&quot;fc std.txt baoli.txt&quot;</span>)) <span class="comment">//当 fc 返回1时，说明这时数据不一样</span></span><br><span class="line">            <span class="keyword">break</span>;                          <span class="comment">//不一样就跳出循环</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>工具(Algorithm)</category>
-      </categories>
-      <tags>
-        <tag>对拍</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>约数问题</title>
-    <url>/2022/04/06/%E7%BA%A6%E6%95%B0%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h1 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h1><blockquote>
-<p>定义:对于一个正整数n，小于n且和n互质的正整数（包括1）的个数，记作φ(n) 。</p>
-</blockquote>
-<h2 id="欧拉函数通式："><a href="#欧拉函数通式：" class="headerlink" title="欧拉函数通式："></a>欧拉函数通式：</h2><p>$φ(n)=n\prod\limits_{i=1}^k(1-\frac{1}{p_i})$</p>
-<p>其中$p_1,p_2……p_k$为$n$的所有质因数,特别的$φ(1)=1$。</p>
-<p>所以根据通式可以直接求出一个数的欧拉值</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">ll <span class="title">euler</span><span class="params">(ll n)</span></span>&#123;</span><br><span class="line">    ll ans = n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>; i * i &lt;= n; i ++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!(n % i))&#123;</span><br><span class="line">            ans = ans / i * (i - <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">while</span>(!(n % i)) n /= i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(n &gt; <span class="number">1</span>) ans = ans / n * (n - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h2><ul>
-<li><p>$欧拉函数为奇性函数$。<br>$积性函数$：对于$f$,当$gcd(a,b)=1$,$f(ab)=f(a)<em>f(b)$<br>$完全积性函数$:特别的，对于任意的$a,b,即gcd(a,b)!=1，也有f(ab)=f(a)</em>f(b)$所以 $ φ(ab)=φ(a)φ(b)$</p>
-<p>当且仅当$gcd(a,b)=1$，即$a,b互质$,特别地，假如a,b不互质，则<br>$\normalsizeφ(ab)=\frac{φ(a)φ(b)gcd(a,b)}{φ(gcd(a,b))}$</p>
-<p>这个便为通式。<br>以上证明均略。</p>
-<ul>
-<li>衍生出的性质：<br> $ φ(2×b)=φ(b)$<br> 当且仅当b为奇数时。</li>
-</ul>
-</li>
-<li><p>对于一个质数$p,φ ( p ) = p − 1$<br>  无需证明，根据定义可以推出<br>  所以线性筛时求出eular函数</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1000010</span>;</span><br><span class="line"><span class="type">int</span> primes[N], cnt;</span><br><span class="line"><span class="type">int</span> euler[N];</span><br><span class="line"><span class="type">bool</span> st[N];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">get_eulers</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    euler[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">2</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(!st[i])</span><br><span class="line">        &#123;</span><br><span class="line">            primes[cnt++]=i;</span><br><span class="line">            euler[i]=i<span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;primes[j]&lt;=n/i;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> t=primes[j]*i;</span><br><span class="line">            st[t]=<span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span> (i % primes[j] == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                euler[t] = euler[i] * primes[j];</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            euler[t] = euler[i] * (primes[j] - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>对于一个质数$p$,$φ(p^k)=p^k-p^{k-1}=p^{k-1}<em>(p-1)=p^{k-1}</em>φ$</p>
-</li>
-<li><p>$n=\sum_{d|n}φ(d)$</p>
-<p>经典应用</p>
-<p>$\sum\limits_{d|gcd(i,j)}φ(d)=gcd(i,j)$</p>
-</li>
-<li>当$n&gt;2$时，$φ ( n )$是偶数。</li>
-<li>对于一个正整数n nn，小于$n$且和$n$互质的正整数(包括1)的和，记作$sum_φ(n)$<script type="math/tex; mode=display">sum_φ(n)=
-\begin{cases}
-1& \text{x=1}\\
-\frac{φ(n)*n}{2}& \text{x>2}
-\end{cases}</script></li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>数学</tag>
       </tags>
   </entry>
 </search>
