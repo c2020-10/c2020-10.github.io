@@ -285,7 +285,12 @@
   <entry>
     <title>数论</title>
     <url>/2022/04/06/%E6%95%B0%E8%AE%BA/</url>
-    <content><![CDATA[<h1 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h1><blockquote>
+    <content><![CDATA[<p>文章内容借鉴<a href="https://www.acwing.com/user/myspace/index/1/">yxc</a>,<a href="https://oi-wiki.org/math/number-theory/sqrt-decomposition/">oiwiki</a>，<a href="https://ab-in.blog.csdn.net/article/details/112795507?spm=1001.2101.3001.6661.1&amp;utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EOPENSEARCH%7ERate-1.pc_relevant_default&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EOPENSEARCH%7ERate-1.pc_relevant_default&amp;utm_relevant_index=1">NEFU AB-IN</a>,<a href="https://www.acwing.com/user/myspace/index/55909/">彩色铅笔</a></p>
+<h1 id="分块"><a href="#分块" class="headerlink" title="分块"></a>分块</h1><p>数论分块可以快速计算一些含有除法向下取整的和式（形如$\sum_{i=1}^nf(i)*g(\frac{n}{i})$的和式）</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="type">long</span> <span class="type">long</span> <span class="title">H</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">  <span class="type">long</span> <span class="type">long</span> res = <span class="number">0</span>;  <span class="comment">// 储存结果</span></span><br><span class="line">  <span class="type">int</span> l = <span class="number">1</span>, r;       <span class="comment">// 块左端点与右端点</span></span><br><span class="line">  <span class="keyword">while</span> (l &lt;= n) &#123;</span><br><span class="line">    r = n / (n / l);  <span class="comment">// 计算当前块的右端点</span></span><br><span class="line">    res += (r - l + <span class="number">1</span>) * <span class="number">1LL</span> *</span><br><span class="line">           (n / l);  <span class="comment">// 累加这一块的贡献到结果中。乘上 1LL 防止溢出</span></span><br><span class="line">    l = r + <span class="number">1</span>;  <span class="comment">// 左端点移到下一块</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="欧拉筛"><a href="#欧拉筛" class="headerlink" title="欧拉筛"></a>欧拉筛</h1><p>线性筛出质数</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> primes[N], cnt;</span><br><span class="line"><span class="type">bool</span> st[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">get_primes</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n; i ++ )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (st[i]) <span class="keyword">continue</span>;</span><br><span class="line">        primes[cnt ++ ] = i;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = i + i; j &lt;= n; j += i)</span><br><span class="line">            st[j] = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h1><blockquote>
 <p>定义:对于一个正整数n，小于n且和n互质的正整数（包括1）的个数，记作φ(n) 。</p>
 </blockquote>
 <h2 id="欧拉函数通式："><a href="#欧拉函数通式：" class="headerlink" title="欧拉函数通式："></a>欧拉函数通式：</h2><p>$φ(n)=n\prod\limits_{i=1}^k(1-\frac{1}{p_i})$</p>
@@ -295,7 +300,7 @@
 <h2 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h2><ul>
 <li><p>$欧拉函数为奇性函数$。<br>$积性函数$：对于$f$,当$gcd(a,b)=1$,$f(ab)=f(a)<em>f(b)$<br>$完全积性函数$:特别的，对于任意的$a,b,即gcd(a,b)!=1，也有f(ab)=f(a)</em>f(b)$所以 $ φ(ab)=φ(a)φ(b)$</p>
 <p>当且仅当$gcd(a,b)=1$，即$a,b互质$,特别地，假如a,b不互质，则<br>$\normalsizeφ(ab)=\frac{φ(a)φ(b)gcd(a,b)}{φ(gcd(a,b))}$</p>
-<p>这个便为通式。<br>以上证明均略。</p>
+<p>这个便为通式。</p>
 <ul>
 <li>衍生出的性质：<br> $ φ(2×b)=φ(b)$<br> 当且仅当b为奇数时。</li>
 </ul>
@@ -318,6 +323,32 @@
 </ul>
 </li>
 </ul>
+<h1 id="狄利克雷卷积"><a href="#狄利克雷卷积" class="headerlink" title="狄利克雷卷积"></a>狄利克雷卷积</h1><p>狄利克雷卷积运算</p>
+<p>$\large(f*g)(n)=\sum_{d|n}{f(\frac{n}{d})g(d)}$</p>
+<p>性质:</p>
+<ul>
+<li>假如做狄利克雷卷积的两个函数$f 和 g $都是积性函数，那么  $f ∗ g $也是积性函数。</li>
+<li>交换律: $ f <em> g = g </em> f $</li>
+<li>结合律: $ ( f <em> g )  </em> h = f <em> ( g </em> h ) $</li>
+<li>分配律: $ ( f + g ) <em> h = f </em> h + g* h  $</li>
+</ul>
+<p>常见的积性函数及狄利克雷卷积</p>
+<ul>
+<li>幂函数 $i d k ( n ) = n^k $</li>
+<li>单位函数$ i d ( n ) = n $（幂函数$k = 1 $的情况）</li>
+<li>不变函数$ I ( n ) = 1 $（幂函数$k = 0 $的情况）</li>
+<li>欧拉函数 $φ ( n )，φ ∗ I = i d$</li>
+<li>莫比乌斯函数$ μ ( n )，μ ∗ i d = φ ，μ ∗ I = ε $</li>
+<li>狄利克雷卷积单位元 $ε ( n ) = [ n = = 1 ]$</li>
+<li>因子个数函数 $d(n)，I∗I=d$</li>
+<li>因子和函数 $σ(n)，I∗id=σ$</li>
+<li>因子函数 $ σk(n),I ∗ i d k = σ k$</li>
+<li>其中$ε , I , i d $为完全积性函数</li>
+</ul>
+<h1 id="莫比乌斯函数"><a href="#莫比乌斯函数" class="headerlink" title="莫比乌斯函数"></a>莫比乌斯函数</h1><p>证明：<a href="https://www.acwing.com/solution/content/64817/">☞tp</a></p>
+<p>设 $f(n),g(n) $为两个数论函数</p>
+<p>如果有$F(n)=\sum\limits<em>{d|n}f(d)$，那么有 $f(n)=\sum\limits</em>{d|n}μ(d)F(\frac{n}{d})$</p>
+<p>如果有$F(n)=\sum\limits<em>{n|d}f(d)$，那么有 $f(n)=\sum\limits</em>{n|d}μ(\frac{d}{n})F(d)$</p>
 ]]></content>
       <categories>
         <category>算法</category>
