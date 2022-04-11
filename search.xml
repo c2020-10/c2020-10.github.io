@@ -1258,7 +1258,82 @@
 <p>UPDATE (更新) :用来通告某一路由的信息，以及列出要撤销的多条路由。</p>
 <p>KEEPALIVE (保活) :用来周期性地证实邻站的连通性。</p>
 <p>NOTIFICATION (通知) : 用来发送检测到的差错。</p>
-<h4 id="路由器的构成"><a href="#路由器的构成" class="headerlink" title="路由器的构成"></a>路由器的构成</h4><h3 id="IP多播"><a href="#IP多播" class="headerlink" title="IP多播"></a>IP多播</h3><h3 id="虚拟专用网VPN和网络地址转换NAT"><a href="#虚拟专用网VPN和网络地址转换NAT" class="headerlink" title="虚拟专用网VPN和网络地址转换NAT"></a>虚拟专用网VPN和网络地址转换NAT</h3><h3 id="多协议标记交换MPLS"><a href="#多协议标记交换MPLS" class="headerlink" title="多协议标记交换MPLS"></a>多协议标记交换MPLS</h3><h3 id="软件定义网络SDN简介"><a href="#软件定义网络SDN简介" class="headerlink" title="软件定义网络SDN简介"></a>软件定义网络SDN简介</h3>]]></content>
+<h4 id="路由器的构成"><a href="#路由器的构成" class="headerlink" title="路由器的构成"></a>路由器的构成</h4><p>路由器工作在网络层，用于互连网络。<br>是互联网中的关键设备。<br>路由器的主要工作：<code>转发分组</code>。<br>把从某个输入端口收到的分组，按照分组要去的目的地（即目的网络），把该分组从路由器的某个合适的输出端口转发给下一跳路由器。</p>
+<ul>
+<li>路由器的结构</li>
+</ul>
+<p><img src="/image/jiwang/4_6_5_1.png" alt="路由器"></p>
+<ul>
+<li>交换结构</li>
+</ul>
+<p>常用交换方法有三种：通过存储器、通过总线、通过纵横交换结构。</p>
+<p>通过存储器</p>
+<blockquote>
+<p>(1) 当路由器的某个输入端口收到一个分组时，就用中断方式通知路由选择处理机。然后分组就从输入端口复制到存储器中。<br>(2) 路由器处理机从分组首部提取目的地址，查找路由表，再将分组复制到合适的输出端口的缓存中。<br>(3) 若存储器的带宽（读或写）为每秒 M 个分组，那么路由器的交换速率（即分组从输入端口传送到输出端口的速率）一定小于 M/2。</p>
+</blockquote>
+<p>通过总线</p>
+<blockquote>
+<p>(1) 数据报从输入端口通过共享的总线直接传送到合适的输出端口，而不需要路由选择处理机的干预。<br>(2) 当分组到达输入端口时若发现总线忙，则被阻塞而不能通过交换结构，并在输入端口排队等待。<br>(3)因为每一个要转发的分组都要通过这一条总线，因此路由器的转发带宽就受总线速率的限制</p>
+</blockquote>
+<p>通过纵横交换结构 </p>
+<blockquote>
+<p>常被称为互连网络 (interconnection network)。<br>(1) 它有 2N 条总线，控制交叉节点可以使 N 个输入端口和 N 个输出端口相连接。<br>(2) 当输入端口收到一个分组时，就将它发送到水平总线上。<br>(3) 若通向输出端口的垂直总线空闲，则将垂直总线与水平总线接通，把该分组转发到这个输出端口。若输出端口已被占用，分组在输入端口排队等待。<br>特点：是一种无阻塞的交换结构，分组可以转发到任何一个输出端口，只要这个输出端口没有被别的分组占用。</p>
+</blockquote>
+<h3 id="IP多播"><a href="#IP多播" class="headerlink" title="IP多播"></a>IP多播</h3><h4 id="IP-多播的基本概念"><a href="#IP-多播的基本概念" class="headerlink" title="IP 多播的基本概念"></a>IP 多播的基本概念</h4><p>1988 年，Steve Deering 首次提出 IP 多播的概念。<br>多播 (multicast)：以前曾译为组播。<br>目的：更好地支持一对多通信。<br><code>一对多通信</code>：一个源点发送到许多个终点。</p>
+<p>IP 多播</p>
+<blockquote>
+<p>在互联网上进行多播就叫做 <code>IP 多播</code>。<br>互联网范围的多播要靠路由器来实现。<br>能够运行多播协议的路由器称为<code>多播路由器</code>(multicast router)。<br>多播路由器也可以转发普通的单播 IP 数据报。<br>从 1992 年起，在互联网上开始试验虚拟的<code>多播主干网</code> MBONE (Multicast Backbone On the InterNEt)。 </p>
+</blockquote>
+<p>多播 IP 地址</p>
+<p><code>多播地址只能用于目的地址，不能用于源地址。</code></p>
+<p>多播数据报</p>
+<blockquote>
+<p>多播数据报和一般的 IP 数据报的区别就是它使用<code>D 类 IP 地址作为目的地址</code>，并且首部中的协议字段值是2，表明使用网际组管理协议 <code>IGMP</code>。<br>多播数据报也是“<code>尽最大努力交付</code>”，不保证一定能够交付多播组内的所有成员。<br>对多播数据报<code>不产生 ICMP 差错报文</code>。因此，若在 PING 命令后面键入多播地址，将永远不会收到响应。</p>
+</blockquote>
+<h4 id="在局域网上进行硬件多播"><a href="#在局域网上进行硬件多播" class="headerlink" title="在局域网上进行硬件多播"></a>在局域网上进行硬件多播</h4><p>在 48 位的多播地址中，前 25 位都固定不变，只有<code>后 23 位可用作多播</code>。</p>
+<h4 id="网际组管理协议-IGMP-和多播路由选择协议"><a href="#网际组管理协议-IGMP-和多播路由选择协议" class="headerlink" title="网际组管理协议 IGMP 和多播路由选择协议"></a>网际组管理协议 IGMP 和多播路由选择协议</h4><ul>
+<li><p>IP 多播需要两种协议</p>
+<ul>
+<li><p>网际组管理协议 IGMP (Internet Group Management Protocol)</p>
+<blockquote>
+<p>使多播路由器知道多播组成员信息（有无成员）。</p>
+</blockquote>
+</li>
+<li><p>多播路由选择协议</p>
+<blockquote>
+<p>使多播路由器协同工作，把多播数据报用最小代价传送给多播组的所有成员。</p>
+</blockquote>
+<p>多播路由选择协议更为复杂</p>
+<p>多播转发必须<code>动态地适应多播组成员的变化</code>（这时网络拓扑并未发生变化），因为每一台主机可以随时加入或离开一个多播组。<br>多播路由器在<code>转发</code>多播数据报时，不能仅仅根据多播数据报中的目的地址，还要考虑这个多播数据报<code>从什么地方来</code>和要<code>到什么地方去</code>。<br>多播数据报可以由<code>没有加入多播组的主机</code>发出，也可以通过没有组成员的接入网络。</p>
+</li>
+</ul>
+</li>
+<li><p>网际组管理协议 IGMP</p>
+</li>
+</ul>
+<p>IGMP 使用 IP 数据报传递其报文</p>
+<p>IGMP 工作可分为两个阶段</p>
+<blockquote>
+<p>第一阶段：加入多播组。<br>第二阶段：探询组成员变化情况。</p>
+</blockquote>
+<p>IGMP 采用的一些具体措施，以避免增加大量开销</p>
+<blockquote>
+<p><code>分散响应</code>。在 IGMP 的询问报文中有一个数值 N，它指明一个<code>最长响应时间</code>（默认值为 10 秒）。当收到询问时，主机在 0 到 N 之间随机选择发送响应所需经过的时延。若一台主机同时参加了几个多播组，则主机对每一个多播组选择不同的随机数。对应于最小时延的响应最先发送。<br><code>采用抑制机制</code>。同一个组内的每一个主机都要监听响应，只要有本组的其他主机先发送了响应，自己就不再发送响应了。</p>
+</blockquote>
+<ul>
+<li>多播路由选择</li>
+</ul>
+<p>(1) 洪泛与剪除</p>
+<blockquote>
+<p>适合于较小的多播组，所有组成员接入的局域网也是相邻接的。<br>开始时，路由器转发多播数据报使用<code>洪泛</code>的方法（这就是广播）。<br>为避免兜圈子，采用<code>反向路径广播 RPB</code> (Reverse Path Broadcasting) 的策略。</p>
+</blockquote>
+<p>(2) 隧道技术 (tunneling)</p>
+<p>(3) 基于核心的发现技术</p>
+<blockquote>
+<p>对于多播组的大小在较大范围内变化时都适合。<br>对每一个多播组 G 指定一个<code>核心</code>(core) 路由器，并给出它的<code>IP 单播地址</code>。<br>核心路由器按照前面讲过的 2 种方法创建出对应于<code>多播组 G 的转发树</code>（核心路由器为根节点）。<br>如果有一个路由器 R1 向核心路由器发送数据报，那么它在<code>途中经过</code>的每一个路由器都要检查其内容。<br>当数据报到达参加了多播组 G 的路由器 R2 时，R2 就处理这个数据报。</p>
+</blockquote>
+<p>几种多播路由选择协议<br>距离向量多播路由选择协议 <code>DVMRP</code> (Distance Vector Multicast Routing Protocol)。互联网上使用的第一个多播路由选择协议。<br>基于核心的转发树 <code>CBT</code> (Core Based Tree)<br>开放最短通路优先的多播扩展 <code>MOSPF</code>(Multicast Extensions to OSPF)<br>协议无关多播-稀疏方式<code>PIM-SM</code>(Protocol Independent Multicast-Sparse Mode) 。<code>唯一成为互联网标准的一个协议</code>。<br>协议无关多播-密集方式 <code>PIM-DM</code> (Protocol Independent Multicast-Dense Mode) </p>
+<h3 id="虚拟专用网VPN和网络地址转换NAT"><a href="#虚拟专用网VPN和网络地址转换NAT" class="headerlink" title="虚拟专用网VPN和网络地址转换NAT"></a>虚拟专用网VPN和网络地址转换NAT</h3><h3 id="多协议标记交换MPLS"><a href="#多协议标记交换MPLS" class="headerlink" title="多协议标记交换MPLS"></a>多协议标记交换MPLS</h3><h3 id="软件定义网络SDN简介"><a href="#软件定义网络SDN简介" class="headerlink" title="软件定义网络SDN简介"></a>软件定义网络SDN简介</h3>]]></content>
       <categories>
         <category>计算机基础</category>
       </categories>
