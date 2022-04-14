@@ -1405,7 +1405,7 @@
 <ul>
 <li>转发等价类 FEC<br>给 IP 数据报打标签的过程叫做<code>分类</code> (classification)。<br>第三层（网络层）分类：只使用 IP 首部中的<code>源</code>和<code>目的</code> IP 地址等。<br>大多数运营商实现了<code>第四层（运输层）分类</code>：除了要检查 IP 首部外，运输层还要检查 TCP 或 UDP<code>端口号</code>。<br>有些运营商则实现了<code>第五层（应用层）分类</code>：进一步地检查数据报的内部并考虑其<code>有效载荷</code>。<br><code>转发等价类 FEC</code> (Forwarding Equivalence Class) ：<code>路由器按照同样方式</code>对待的分组的集合。</li>
 </ul>
-<h4 id="MPLS-首部的位置与格式"><a href="#MPLS-首部的位置与格式" class="headerlink" title="MPLS 首部的位置与格式"></a>MPLS 首部的位置与格式</h4><p><img src="/iamge/jiwang/4_9_2.png" alt="MPLS"></p>
+<h4 id="MPLS-首部的位置与格式"><a href="#MPLS-首部的位置与格式" class="headerlink" title="MPLS 首部的位置与格式"></a>MPLS 首部的位置与格式</h4><p><img src="/image/jiwang/4_9_2.png" alt="MPLS"></p>
 <p>(1) 标签值（占 20 位），可以同时容纳高达 220 个流（即 1048576 个流）。<br>(2) 试验（占 3 位）。保留用作试验。<br>(3) 栈S（占 1 位）。在有“标签栈”时使用。<br>(4) 生存时间 TTL（占 8 位），用来防止 MPLS 分组在 MPLS 域中兜圈子。</p>
 <h4 id="新一代的-MPLS"><a href="#新一代的-MPLS" class="headerlink" title="新一代的 MPLS"></a>新一代的 MPLS</h4><p>段路由选择协议 SR</p>
 <blockquote>
@@ -1435,6 +1435,25 @@
       </categories>
       <tags>
         <tag>计算机知识</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>每日一读（1）</title>
+    <url>/2022/04/14/%E6%AF%8F%E6%97%A5%E4%B8%80%E8%AF%BB%EF%BC%881%EF%BC%89/</url>
+    <content><![CDATA[<p>他们对我们的乐趣一无所知,<br>也不知道我们自得其乐的美妙。</p>
+<div align=center> ——海明威 </div>
+
+<hr>
+<h3 id="风景中的少年"><a href="#风景中的少年" class="headerlink" title="风景中的少年"></a>风景中的少年</h3><div align=center> ——胡戈·冯·霍夫曼斯塔尔 </div>
+
+
+<p>园工清空了他们的苗圃，<br>许多乞丐三在四处<br>眼前蒙黑，手撑拐杖——<br>可也手持竖琴和新开的花，<br>有柔弱的春花浓烈的香。<br>赤裸的树让万物尽览：<br>往下看得到河流，看得到集市，<br>和许多在池塘旁游戏的孩童。<br>他缓缓穿过一片风景<br>感到了风景的强力并知道——<br>世界诸多命运与他相系。<br>他走向那些陌生的孩童<br>准备着越过未知的门槛<br>以仆役的姿态引入一个新的生命。<br>他不曾动过心念，<br>不会看重他的财富，<br>往昔的路与回忆<br>交缠的手指和交换过的灵魂<br>那不过事份微不足道的财物。<br>花香只向他讲述<br>陌生的美——而新的空气<br>他静静呼吸纳入，却无渴望：<br>他可为人效力，为此让他欢欣。</p>
+]]></content>
+      <categories>
+        <category>人间清醒</category>
+      </categories>
+      <tags>
+        <tag>诗词</tag>
       </tags>
   </entry>
 </search>
